@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-16T13:41:28+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">我的第一个博客</title><subtitle>An amazing website.</subtitle><author><name>David Lee</name></author><entry><title type="html">Blog Format-Header Image Overlay</title><link href="http://localhost:4000/first-post/" rel="alternate" type="text/html" title="Blog Format-Header Image Overlay" /><published>2020-03-15T00:00:00+08:00</published><updated>2020-03-16T21:20:51+08:00</updated><id>http://localhost:4000/first-post</id><content type="html" xml:base="http://localhost:4000/first-post/">&lt;p&gt;This post should display a &lt;strong&gt;header with an overlay image&lt;/strong&gt;, if the theme supports it.&lt;/p&gt;
+
+&lt;h2 id=&quot;第一篇博客&quot;&gt;第一篇博客&lt;/h2&gt;
+&lt;p&gt;为了用个jekyll模板，ubuntu折腾了一天。中间遇到一些bug贼痛苦，记录下来也许对别人有点用处。&lt;/p&gt;
+&lt;h3 id=&quot;坑点&quot;&gt;坑点&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Ubuntu持续黑屏&lt;/li&gt;
+  &lt;li&gt;速度拉跨的gem源&lt;/li&gt;
+  &lt;li&gt;bundle install 提示找不到openssl&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;解决办法&quot;&gt;解决办法&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;$&amp;gt; vim /etc/default/grub  &lt;br /&gt;
+增加nomodeset到GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash nomodeset&quot;  &lt;br /&gt;
+$&amp;gt; sudo update-grub  &lt;br /&gt;
+$&amp;gt; sudo reboot	&lt;br /&gt;
+有可能之前安装就一直黑屏，如果是vmware 建议用原生的模拟磁盘安装（选稍后自行安装），自动安装贼坑。
+卡在retrieving file 可以 skip 不然等一年！&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;$&amp;gt; gem sources -l   &lt;br /&gt;
+$&amp;gt; gem sources -r   //加上上面的干掉官方源   &lt;br /&gt;
+$&amp;gt; gem sources -a 'https://gems.ruby-china.com'  //目前可用的国内源   &lt;br /&gt;
+另外gem在update 或者 bundle install的时候 也会使用默认源。   &lt;br /&gt;
+$&amp;gt; bundle config 'mirror.https://rubygems.org' 'https://gems.ruby-china.com'
+会在你 ~/.bundle 生成对应配置文件，而不需要去改Gemfile  &lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;这个坑奇坑无比！！  明明安装了openssl，他就是找不到你气不气 &lt;br /&gt;
+$&amp;gt; sudo gem install eventmachine -v '1.2.7' --source 'https://gems.ruby-china.com' -- --with-cppflags=-I/usr/local/opt/openssl/include   &lt;br /&gt;
+参数设置也是贼坑，看帮助完全没用！！ 注意 两个'--'不能少 还有空格&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;模板用的github mmistakes大佬的jekyll-theme-skinny-bones，装完ruby、rubygem、bundle 之后，解压大佬的zip包 bundle install 安装好 jekyll 就可以自己写博客啦！！  &lt;br /&gt;
+编译: $&amp;gt;bundle exec jekyll build    &lt;br /&gt;
+开启服务器: $&amp;gt;bundle exec jekyll serve    &lt;br /&gt;
+默认本机 127.0.0.0:4000  绑定的本机内网 宿主机进不去的。&lt;/p&gt;
+
+&lt;p&gt;makedown还不熟估计版式贼丑。 &lt;br /&gt;
+模板换成大佬最新的 minimal-mistakes。&lt;/p&gt;</content><author><name>David Lee</name></author><summary type="html">This post should display a header with an overlay image, if the theme supports it.</summary></entry></feed>
