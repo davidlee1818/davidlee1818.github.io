@@ -46,9 +46,10 @@ comments:
     issue_term           : # "pathname" (default)
   staticman:
     branch               : "master"
+    endpoint             : "https://staticman-for-blog.herokuapp.com/v2/entry/davidlee1818/davidlee1818.github.io/master/comments"
 reCaptcha:
-  siteKey                :
-  secret                 :
+  siteKey                : "6LcHr-EUAAAAAI1ZaibOGQmogenRuEdKC6DE00Qi"
+  secret                 : "FqW2yvFvkWQpP5aeSBm2rJqzfyg/Pk7bDxS2nIz794MEEr8ZNHi8GzNXrmqo++NxSwz9tDZrvIl1vjdvO/yCHnY6X8KzeN+zoimW83MrvSQth6ZwxI+DL2hepRbe+KF972CR+Bgbh8TAPL3cQX3WrSS/iXMq/3IX+Qx4dcWR2aeQ4/S30ZQsPFd/5Qnws4smneB0ruXMz3LtaUGyJIO7rBzi2dfVxfAcVojYQqpESDWf/j8klaOzFNojug1m/f4TfZn6M6nFCNI3xJhaq2TsA08gUu6RbkFeVpgVhujo0trN9Fmg0QJvNb5UtPBu49qAxaTVbz1rstcFDxivSQ16YMWk980USV8TQKTy3SFQQyWfILqt8t4oLDnXdMyMw02Ba/OHa8vyulyslbiT+JWbb0Zi3BzBs7AYH/QYkpAJs1CDHVKt4NWzGH2jHvtSGhtxwtmDCGBgBT5qROnjts5HhZ8Hwpj59j0ByaSkCP+JOAZA5MYuZp9IalMfUObn4bpzcWNsnr340C5yQK8kdeBBQOyJb7eyz9OEWkScmNrQ9pqfQV5ed2eYKTMpouYi2NWexIELpM6kq9vKn5wjPg44RhWW9h/ieaSRFlZXjI1WXXzWcXnNj2Dga7EONJgGoo5I3PkKVtDatvMs7mHjOsC2zXgrN2VwZsR7iRhaOZUl+Nw="
 atom_feed:
   path                   : # blank (default) uses feed.xml
 search                   : # true, false (default)
