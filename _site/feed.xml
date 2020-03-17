@@ -1,4 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-03-17T12:29:46+08:00</updated><id>/feed.xml</id><title type="html">我的第一个博客</title><subtitle>An amazing website.</subtitle><author><name>David Lee</name><email>davidlee1818@163.com</email></author><entry><title type="html">Blog Format-Header Image Overlay</title><link href="/first-post/" rel="alternate" type="text/html" title="Blog Format-Header Image Overlay" /><published>2020-03-15T00:00:00+08:00</published><updated>2020-03-16T21:20:51+08:00</updated><id>/first-post</id><content type="html" xml:base="/first-post/">&lt;p&gt;This post should display a &lt;strong&gt;header with an overlay image&lt;/strong&gt;, if the theme supports it.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-03-17T14:43:16+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">我的第一个博客</title><subtitle>An amazing website.</subtitle><author><name>David Lee</name><email>davidlee1818@163.com</email></author><entry><title type="html">通过staticman实现博客评论</title><link href="http://localhost:4000/%E9%80%9A%E8%BF%87staticman%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA/" rel="alternate" type="text/html" title="通过staticman实现博客评论" /><published>2020-03-17T00:00:00+08:00</published><updated>2020-03-17T00:00:00+08:00</updated><id>http://localhost:4000/%E9%80%9A%E8%BF%87staticman%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA</id><content type="html" xml:base="http://localhost:4000/%E9%80%9A%E8%BF%87staticman%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA/">&lt;h1 id=&quot;博客实现评论及验证&quot;&gt;博客实现评论及验证&lt;/h1&gt;
+&lt;p&gt;大佬帖子先贴上 https://travisdowns.github.io/blog/2020/02/05/now-with-comments.html &lt;br /&gt;
+流程原理：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;客户端网页渲染器通过post请求提交评论表单，js附加表单信息提交到运行在Heroku上的staticman (API bridge).&lt;/li&gt;
+  &lt;li&gt;云端staticman保持着一份local git-repo(第一次是从你的blog-repo clone 到本地的)。&lt;/li&gt;
+  &lt;li&gt;收到评论时会同步到bot账号的github仓库,并发起pull请求到你的博客仓库，然后需要博客账号同意merge。&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;当你同意merge之后，会立即触发github pages立即更新并发布你的网页内容(这是github pages的特性)，刷新后评论立刻就会出现。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;建一个bot账号普通账号用户&quot;&gt;建一个bot账号（普通账号）用户&lt;/h2&gt;
+&lt;p&gt;为了能实现上述流程，因此需要用你的博客账号把bot账号拉到协作者团队中，允许bot修改你的博客仓库。 &lt;br /&gt;
+同时生成github Personal access tokens,勾选repo和users scope.&lt;/p&gt;
+
+&lt;h2 id=&quot;google-recaptcha实验验证功能&quot;&gt;google recaptcha实验验证功能&lt;/h2&gt;
+&lt;p&gt;https://www.google.com/recaptcha/admin 翻墙注册博客域名 拿到sitekey和screte &lt;br /&gt;
+sitekey:在您的网站提供给用户的 HTML 代码中使用此网站密钥。&lt;br /&gt;
+screte:此密钥用于您的网站和 reCAPTCHA 之间的通信(staticman 还会对它再加密) &lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//使用之前部署在heroku的staticman加密recaptcha的screte
+https://${bridge_app_name}.herokuapp.com/v2/encrypt/{$recaptcha-site-secret}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;将sitekey和加密后screte正确设置到jekyll的_config.yml中。
+记得将html中的goog recaptcha中的js源改成国内的，不然无法通过验证（被墙了）。
+将www.google.com改成www.recaptcha.net&lt;/p&gt;
+
+&lt;h2 id=&quot;通过heroku实现私人staticman服务&quot;&gt;通过heroku实现私人staticman服务&lt;/h2&gt;
+&lt;p&gt;这个网站是真厉害，你可以部署你的服务在上面实时运行，甚至可以自定义pipline，统计分析、机器学习都能用得上。
+现在你要为staticman添加参数配置：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;在本机生成rsa密钥对，用公钥加密你的reCAPTCHA screte的公共部分，之后使用私钥进行解密。&lt;/li&gt;
+  &lt;li&gt;登录heroku的cli，可以使用web端设置，也可以下载heroku的client登录。cli设置如下：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;heroku config:add --app ${bridge_app_name} &quot;RSA_PRIVATE_KEY=$(cat ~/.ssh/staticman_key | tr -d '\n')&quot;
+heroku config:add --app ${bridge_app_name} &quot;GITHUB_TOKEN=${github_token}&quot;
+heroku config --app ${bridge_app_name} //验证参数设置是否正确
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;staticman无法处理换行,需要处理掉&quot;\n&quot; 和 /&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;邀请bot账户至协作者团队 blog-repo -&amp;gt; Settings -&amp;gt; manage access -&amp;gt; invate a collaborator
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//浏览器中输入以下地址, ${bridge_app_name}是你heroku上的应用名 后两个参数你是博客的用户名和仓库名
+https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-repo}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;当出现OK！就说明邀请成功了(只会显示一次，之后再刷新就会提示邀请找不到)，事实上你也可以手动通过bot账号的邮件同意邀请。
+不过通过heroku同意也证明了我们之前的设置是有效的。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;现在你的博客就可以实现评论功能了！！！&lt;/p&gt;</content><author><name>David Lee</name><email>davidlee1818@163.com</email></author><summary type="html">博客实现评论及验证 大佬帖子先贴上 https://travisdowns.github.io/blog/2020/02/05/now-with-comments.html 流程原理： 客户端网页渲染器通过post请求提交评论表单，js附加表单信息提交到运行在Heroku上的staticman (API bridge). 云端staticman保持着一份local git-repo(第一次是从你的blog-repo clone 到本地的)。 收到评论时会同步到bot账号的github仓库,并发起pull请求到你的博客仓库，然后需要博客账号同意merge。 当你同意merge之后，会立即触发github pages立即更新并发布你的网页内容(这是github pages的特性)，刷新后评论立刻就会出现。</summary></entry><entry><title type="html">Blog Format-Header Image Overlay</title><link href="http://localhost:4000/first-post/" rel="alternate" type="text/html" title="Blog Format-Header Image Overlay" /><published>2020-03-15T00:00:00+08:00</published><updated>2020-03-16T21:20:51+08:00</updated><id>http://localhost:4000/first-post</id><content type="html" xml:base="http://localhost:4000/first-post/">&lt;p&gt;This post should display a &lt;strong&gt;header with an overlay image&lt;/strong&gt;, if the theme supports it.&lt;/p&gt;
 
 &lt;h2 id=&quot;第一篇博客&quot;&gt;第一篇博客&lt;/h2&gt;
 &lt;p&gt;为了用个jekyll模板，ubuntu折腾了一天。中间遇到一些bug贼痛苦，记录下来也许对别人有点用处。&lt;/p&gt;
