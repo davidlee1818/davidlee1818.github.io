@@ -10,7 +10,7 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>通过staticman实现博客评论 - 我的第一个博客</title>
-<meta name="description" content="这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！ minimal-mistakes最新版本 ">
+<meta name="description" content="An amazing website. ">
 
 
   <meta name="author" content="David Lee">
@@ -20,14 +20,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:site_name" content="我的第一个博客">
 <meta property="og:title" content="我的第一个博客">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:url" content="http://localhost:4000/recent/">
 
 
-  <meta property="og:description" content="这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！ minimal-mistakes最新版本 ">
+  <meta property="og:description" content="An amazing website. ">
 
 
-
-  <meta property="og:image" content="http://localhost:4000/assets/images/home-top.jpg">
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/recent/">
 
 
 
@@ -105,7 +103,7 @@
 
   </head>
 
-  <body class="layout--splash">
+  <body class="layout--home">
     <nav class="skip-links">
   <h2 class="screen-reader-text">Skip links</h2>
   <ul>
@@ -154,151 +152,214 @@
 
     <div class="initial-content">
       
-  
-
-
-
-
-
-
-
-<div class="page__hero--overlay"
-  style="background-color: #5e616c; background-image: url('/assets/images/home-top.jpg');"
->
-  
-    <div class="wrapper">
-      <h1 id="page-title" class="page__title" itemprop="headline">
-        
-          我的第一个博客
-
-        
-      </h1>
-      
-        <p class="page__lead">这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！<br /> <small><a href="https://github.com/mmistakes/minimal-mistakes/releases/tag/4.19.0">minimal-mistakes最新版本</a></small>
-</p>
-      
-      
-      
-      
-        <p>
-        
-          <a href="/recent/" class="btn btn--light-outline btn--large"><i class='fas fa-download'></i> 最近写的博客</a>
-        
-      
-    </div>
-  
-  
-    <span class="page__hero-caption">Photo credit: <a href="https://unsplash.com"><strong>Unsplash</strong></a>
-</span>
-  
-</div>
 
 
 
 <div id="main" role="main">
-  <article class="splash" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <meta itemprop="description" content="这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！ minimal-mistakes最新版本">
-    
-    
+  
+  <div class="sidebar sticky">
+  
 
-    <section class="page__content" itemprop="text">
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
       
-<div class="feature__wrapper">
-
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/images/home-write.jpg" alt="customizable" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Super customizable</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Everything from the menus, sidebars, comments, and more can be configured or set with YAML Front Matter.</p>
-
-            </div>
-          
-
-          
-            <p><a href="/" class="btn btn--primary">Learn more</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/images/home-project.jpg" alt="fully responsive" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">Responsive layouts</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Built with HTML5 + CSS3. All layouts are fully responsive with helpers to augment your content.</p>
-
-            </div>
-          
-
-          
-            <p><a href="/" class="btn btn--primary">Learn more</a></p>
-          
-        </div>
-      </div>
-    </div>
-  
-    <div class="feature__item">
-      <div class="archive__item">
-        
-          <div class="archive__item-teaser">
-            <img src="/assets/images/home-cat.jpg" alt="100% free" />
-            
-          </div>
-        
-
-        <div class="archive__item-body">
-          
-            <h2 class="archive__item-title">100% free</h2>
-          
-
-          
-            <div class="archive__item-excerpt">
-              <p>Free to use however you want under the MIT License. Clone it, fork it, customize it… whatever!</p>
-
-            </div>
-          
-
-          
-            <p><a href="/" class="btn btn--primary">Learn more</a></p>
-          
-        </div>
-      </div>
+        <img src="/assets/images/david.jpg" alt="David Lee" itemprop="image">
+      
     </div>
   
 
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">David Lee</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p><em>自律的人才配谈自由</em></p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">ChangSha, CN</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/davidlee1818" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/davidlee1818" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:davidlee1818@163.com">
+            <meta itemprop="email" content="davidlee1818@163.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
 </div>
 
+  
+  </div>
 
-    </section>
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title"></h1>
+    
+    
+
+<h3 class="archive__subtitle">最新文章</h3>
+
+
+
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/%E9%80%9A%E8%BF%87staticman%E5%AE%9E%E7%8E%B0%E5%8D%9A%E5%AE%A2%E8%AF%84%E8%AE%BA/" rel="permalink">通过staticman实现博客评论
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟阅读
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+博客实现评论及验证
+大佬帖子先贴上 https://travisdowns.github.io/blog/2020/02/05/now-with-comments.html 
+流程原理：
+
+  客户端网页渲染器通过post请求提交评论表单，js附加表单信息提交到运行在Heroku上的staticman (API...</p>
   </article>
 </div>
 
+
+  
+
+
+
+<div class="list__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/first-post/" rel="permalink">Blog Format-Header Image Overlay
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟阅读
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This post should display a header with an overlay image, if the theme supports it.
+</p>
+  </article>
+</div>
+
+
+
+
+
+
+  </div>
+</div>
     </div>
 
     
