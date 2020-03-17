@@ -81,7 +81,8 @@
             </form>
           </div>
           <!-- End new comment form -->
-          {% if site.reCaptcha.siteKey %}<script async src="https://www.google.com/recaptcha/api.js"></script>{% endif %}
+          <!-- china useable recaptcha https://www.google.com/recaptcha/api.js change www.google.com to www.recaptcha.net -->
+          {% if site.reCaptcha.siteKey %}<script async src="https://www.recaptcha.net/recaptcha/api.js"></script>{% endif %}
         {% endif %}
       </section>
     {% when "staticman" %}
