@@ -12,7 +12,7 @@
 
 remote_theme             : "mmistakes/minimal-mistakes@4.19.1"
 #theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "sunrise" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "zh-CN"
@@ -97,7 +97,7 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/david.jpg"
-  bio              : "*自律* 的人才配谈*自由*"
+  bio              : "*自律的人才配谈自由*"
   location         : "ChangSha, CN"
   email            : "davidlee1818@163.com"
   links:
@@ -122,13 +122,13 @@ footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      # url:
+      url: "https://twitter.com/davidlee1818"
     - label: "Facebook"
       icon: "fab fa-fw fa-facebook-square"
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://github.com/davidlee1818"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
@@ -206,7 +206,7 @@ sass:
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Shanghai # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins (previously gems:)
