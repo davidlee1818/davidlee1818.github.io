@@ -46,7 +46,7 @@ comments:
     issue_term           : # "pathname" (default)
   staticman:
     branch               : "master"
-    endpoint  		 : "https:/staticman-for-blog.herokuapp.com/v3/entry/github/comments"
+    endpoint  		 : "https:/staticman-for-blog.herokuapp.com/v3/entry/github/"
 reCaptcha:
   siteKey                : "6LcHr-EUAAAAAPovqifknpBCkQkPQYE9td9FYFHL"
   secret                 : "FqCEoC7P0I3luI9VYCBZNLWsyrLq9s7/hfbXo+OZvdKqbj4W3Vl79463iP1DO32yNfT4idIKQqDW9VIoc1HQC40BjE0JUJ6PF8WhXEwQ/D9o0wzMWiXjhPudBNPJiv1VrrV2ro4lXlmRt/YVAP6pzCLnV9cUSjuTDb4Gs9gFMiw+QpcR4zM6rK+h74vO96dsAW7vsB4QuXatTvY8OGfsLBs0DpQPzOnajTbu0ZjzR9T1DLNXWyifdgRh2DXr8g0SLKCXpWQOpJhRwt8sdMZAppLhUKnA48VRKcnP8pDN9UCTPesSJDSHLtZ5MgxZEUKFVWqPorCAHv4EDIALfBEoJbJWIjwH3GM39piHudYmWpKTg66Ua2h5Z8c3H/LF9jHSI1vSIy8qrgTN/iFZFaZ78vgjuRgT0gqWzpqpwwXOiWoSLNo4SXsZ/jEH9KNHK9KINfVgzCJ72rcOHzEjqn3AlR5i+Jus3sJx3BYyI4bf9lnWDHq7llCpKyMTywxwXC9rgWTwm3MkrzMBdyJnCTjEHiO6kl8+r73BTQLFgL0G/5CsMQkpz3/okmVwiu8oISsOUCD2H+HKzUg1RS+zwQTuiy1UrIElpVJuDU6ok3Wvgq1uaTWvPNXC1P2DQff6UulUp3+XXr6wRvr0GZDiwMKV11sVCvJtZVvuQNaxN1d7jPo="
