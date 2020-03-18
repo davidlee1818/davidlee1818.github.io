@@ -18,10 +18,10 @@ gallery:
     image_path: assets/images/unsplash-gallery-image-3-th.jpg
     alt: "placeholder image 3"
 toc: true
-toc_label: "My Table of Contents"
+toc_label: "本页目录"
 toc_icon: "cog"
 ---
-{% include toc %}
+
 
 ## 第一篇博客   
 为了用个jekyll模板，ubuntu折腾了一天。中间遇到一些bug贼痛苦，记录下来也许对别人有点用处。

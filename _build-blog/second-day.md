@@ -18,10 +18,10 @@ gallery:
     image_path: assets/images/unsplash-gallery-image-3-th.jpg
     alt: "placeholder image 3"
 toc: true
-toc_label: "My Table of Contents"
+toc_label: "本页目录"
 toc_icon: "cog"
 ---
-{% include toc %}
+
 
 ## 博客实现评论及验证
 大佬帖子先贴上 [**点这**](https://travisdowns.github.io/blog/2020/02/05/now-with-comments.html) <br />
