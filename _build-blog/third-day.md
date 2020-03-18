@@ -61,7 +61,7 @@ ALGOLIA_API_KEY=your_admin_api_key bundle exec jekyll algolia
 接下来是你要执行的一些步骤：
  - 注册登录[travis-ci.org](https://travis-ci.org/)(可以直接使用github账户登录)
  - 点击你的头像和简介
- - 从列表中找到你的github仓库并启用他 
+ - 从列表中找到你的github仓库并启用 
 
 
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/shortcut-buildblog03.png){: .align-right}
@@ -87,21 +87,16 @@ rvm:
  - 2.4'
 
 ```
-This file will be read by Travis and instruct it to fetch all the dependencies defined in the Gemfile through Bundler. It will then run bundle exec jekyll algolia which will actually index your data.
-
-You might have to edit the branches.only value to either master or gh-pages, depending on which branch is configured to be deployed in your GitHub Pages configuration.
 通过`.travis.yml`文件Travis能够使用Bundler获得你定义在`Gemfile`中的所有依赖，然后执行`bundle exec jekyll algolia`对你的数据自动排序。
 设置`branches.only`的值，你可以选只对github仓库的某个分支生效，通常来说都是master，取决于你Github pages发布在哪里。
  
 ## 忽略`vendor`
-Travis bundles all gems in the vendor directory on its servers, which Jekyll will mistakenly read. This will likely make the process fail. To avoid this, add vendor to the exclude list in your _config.yml file.
 Travis将他的服务端`vendor`目录下所有gems打包，因此Jekyll可以能会错误的读取，这可能会导致执行失败。为了避免这种情况，你应该将`vendor`配置到`_config.yml`的`exclude`列表中。
 ```
 exclude: [vendor]
 ```
 ## 添加`ALGOLIA_API_KEY`
 通过WebUI Travis Settings页面将你的`ALGOLIA_API_KEY`作为环境变量传给Travis。
-Commit all the changes you made, and then push your repository. Travis will catch the event and trigger your indexing for you. You can follow the Travis job execution directly on your Travis dashboard, with a full log.
 
 
 接下来让我们验证一下，提交你所有的修改并push到Github远程仓库，Travis会抓取push事件并触发一个自动排序。你可以通过Travis dashboard查看作业执行的完整日志。
