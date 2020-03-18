@@ -1,0 +1,533 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.19.0 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>搭建博客之第一天 - 我的博客</title>
+<meta name="description" content="在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！ ">
+
+
+  <meta name="author" content="David Lee">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:title" content="搭建博客之第一天">
+<meta property="og:url" content="http://localhost:4000/build-blog/first-day/">
+
+
+  <meta property="og:description" content="在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！ ">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/images/unsplash-gallery-image-1-th.jpg">
+
+
+
+
+
+  <meta property="article:published_time" content="2020-03-18T17:29:34+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/build-blog/first-day/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "David Lee",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+  <meta name="google-site-verification" content="nHSNTS-TJkcL3uE3dummSQ_g1E23VVwiNx88-MNGOvI" />
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/assets/images/sitelogo.gif" alt=""></a>
+        
+        <a class="site-title" href="/">
+          我的博客
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="">To Do</a>
+            </li><li class="masthead__menu-item">
+              <a href="">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="">Sample Posts</a>
+            </li><li class="masthead__menu-item">
+              <a href="">Sample Collections</a>
+            </li><li class="masthead__menu-item">
+              <a href="">Sitemap</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">切换菜单</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: url('/assets/images/unsplash-gallery-image-1-th.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          搭建博客之第一天
+
+        
+      </h1>
+      
+        <p class="page__lead">在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！
+</p>
+      
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption">Photo credit: <a href="https://unsplash.com"><strong>Unsplash</strong></a>
+</span>
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+  
+    
+      
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <a href="/build-blog/"><span class="nav__sub-title">1.博客搭建记录</span></a>
+        
+
+        
+        <ul>
+          
+            <li><a href="/build-blog/first-day/" class="active">1.1 准备搭建环境</a></li>
+          
+            <li><a href="/build-blog/second-day/">1.2 博客评论及验证</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="搭建博客之第一天">
+    <meta itemprop="description" content="在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！">
+    <meta itemprop="datePublished" content="2020-03-18T17:29:34+08:00">
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-cog"></i> My Table of Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#"> 在本页上</a></li>
+  <li><a href="#方法一">方法一</a></li>
+  <li><a href="#方法二">方法二</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <aside class="sidebar__right">
+<nav class="toc">
+    <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> 在本页上</h4></header>
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#第一篇博客" id="markdown-toc-第一篇博客">第一篇博客</a>    <ul>
+      <li><a href="#坑点" id="markdown-toc-坑点">坑点</a></li>
+      <li><a href="#解决ubuntu各种黑屏" id="markdown-toc-解决ubuntu各种黑屏">解决ubuntu各种黑屏</a>        <ul>
+          <li><a href="#方法一" id="markdown-toc-方法一">方法一</a></li>
+          <li><a href="#方法二" id="markdown-toc-方法二">方法二</a></li>
+        </ul>
+      </li>
+      <li><a href="#更换gems国内源" id="markdown-toc-更换gems国内源">更换gems国内源</a></li>
+      <li><a href="#安装jekyll和theme的依赖" id="markdown-toc-安装jekyll和theme的依赖">安装jekyll和theme的依赖</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="第一篇博客">第一篇博客</h2>
+<p>为了用个jekyll模板，ubuntu折腾了一天。中间遇到一些bug贼痛苦，记录下来也许对别人有点用处。</p>
+<h3 id="坑点">坑点</h3>
+<ol>
+  <li>Ubuntu各种黑屏</li>
+  <li>速度拉跨的gems源</li>
+  <li>bundle install 提示找不到openssl</li>
+</ol>
+
+<figure class="third ">
+  
+    
+      <a href="/assets/images/unsplash-gallery-image-1.jpg">
+          <img src="/assets/images/unsplash-gallery-image-1-th.jpg" alt="placeholder image 1" />
+      </a>
+    
+  
+    
+      <a href="/assets/images/unsplash-gallery-image-2.jpg">
+          <img src="/assets/images/unsplash-gallery-image-2-th.jpg" alt="placeholder image 2" />
+      </a>
+    
+  
+    
+      <a href="/assets/images/unsplash-gallery-image-3.jpg">
+          <img src="/assets/images/unsplash-gallery-image-3-th.jpg" alt="placeholder image 3" />
+      </a>
+    
+  
+  
+    <figcaption>This is a sample gallery to go along with this case study.
+</figcaption>
+  
+</figure>
+
+<h3 id="解决ubuntu各种黑屏">解决ubuntu各种黑屏</h3>
+<h4 id="方法一">方法一</h4>
+<p>$&gt; vim /etc/default/grub  <br />
+增加nomodeset到GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nomodeset"  <br />
+$&gt; sudo update-grub  <br />
+$&gt; sudo reboot	<br />
+这个方法禁止虚拟机检测显卡，设置后屏幕可能很难看。<br /></p>
+<h4 id="方法二">方法二</h4>
+<p>管理员cmd&gt; netsh winsock reset   <br />
+将winsock的目录重置为默认的设置状态。虚拟机与主机之间的通信方式是以socket进行的。
+可能会因为某个程序通过LSP注入DLL,导致回收不彻底。影响虚拟的运行。因此需要进行这些注入DLL的残留清理重置。
+这个方法虚拟机显示效果更好，但是会重置防火墙设置 hosts文件变成只读。<br />
+没用！！ 事实上虚拟机重启它就黑屏，宿主机重启才能正常进入虚拟机可视化界面，尝试调整虚拟机显示可用内存试试。<br /></p>
+
+<p>另外，有可能之前安装就一直黑屏，如果是vmware 建议用原生的模拟磁盘安装（选稍后自行安装），自动安装贼坑。
+卡在retrieving file 可以 skip 不然等一年！ <br /></p>
+<h3 id="更换gems国内源">更换gems国内源</h3>
+<p>$&gt; gem sources -l   <br />
+$&gt; gem sources -r   //加上上面的干掉官方源   <br />
+$&gt; gem sources -a 'https://gems.ruby-china.com'  //目前可用的国内源   <br />
+另外gem在update 或者 bundle install的时候 也会使用默认源。   <br />
+$&gt; bundle config 'mirror.https://rubygems.org' 'https://gems.ruby-china.com'
+会在你 ~/.bundle 生成对应配置文件，而不需要去改Gemfile  <br /></p>
+<h3 id="安装jekyll和theme的依赖">安装jekyll和theme的依赖</h3>
+<p>这个坑奇坑无比！！  明明安装了openssl，他就是找不到你气不气 <br /></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; sudo gem install eventmachine -v \'1.2.7\' \-\-source \'https://gems.ruby-china.com\' \-\- \-\-with-cppflags=-I/usr/local/opt/openssl/include
+</code></pre></div></div>
+<p>参数设置也是贼坑，看帮助完全没用！！ 注意 两个'--'不能少 还有空格。
+模板用的github mmistakes大佬的jekyll-theme-skinny-bones，装完ruby、rubygem、bundle 之后，解压大佬的zip包 bundle install 安装好 jekyll 就可以自己写博客啦！！  <br />
+编译: $&gt;bundle exec jekyll build    <br />
+开启服务器: $&gt;bundle exec jekyll serve    <br />
+默认本机 127.0.0.0:4000  绑定的本机内网 宿主机进不去的。 <br />
+tips：有些时候需要强制jekyll生产模式下运行，用来开启一些功能 比如：评论 等。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$&gt; JEKYLL_ENV=production bundle exec jekyll build
+</code></pre></div></div>
+<p>makedown还不熟估计版式贼丑。 <br />
+模板换成大佬最新的 minimal-mistakes。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-18T17:29:34+08:00">March 18, 2020</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B9%8B%E7%AC%AC%E4%B8%80%E5%A4%A9%20http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Ffirst-day%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Ffirst-day%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Ffirst-day%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">向前</a>
+    
+    
+      <a href="/build-blog/second-day/" class="pagination--pager" title="搭建博客之第二天
+">向后</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>关注:</strong></li>
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/davidlee1818" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/davidlee1818" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2020 David Lee. 技术来自于 <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'V3OJOP2I15',
+  apiKey: '0cd684ec0d6703ccc59ff0329272935d',
+  indexName: 'algolia-for-blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: '输入您要搜索的关键词...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+
+
+
+  </body>
+</html>

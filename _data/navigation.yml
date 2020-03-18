@@ -1,12 +1,22 @@
 # main links
 main:
-  # - title: "Quick-Start Guide"
+  - title: "To Do"
   #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
+  - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
+  - title: "Sample Posts"
   #   url: /year-archive/
-  # - title: "Sample Collections"
+  - title: "Sample Collections"
   #   url: /collection-archive/
-  # - title: "Sitemap"
+  - title: "Sitemap"
   #   url: /sitemap/
+
+foo:
+  - title: "1.博客搭建记录"
+    url: /build-blog/
+    children :
+      - title: "1.1 准备搭建环境"
+        url: /build-blog/first-day/
+      - title: "1.2 博客评论及验证"
+        url: /build-blog/second-day/
+

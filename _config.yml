@@ -16,9 +16,9 @@ minimal_mistakes_skin    : "sunrise" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "zh-CN"
-title                    : "我的第一个博客"
+title                    : "我的博客"
 title_separator          : "-"
-subtitle                 : # site tagline that appears below site title in masthead
+subtitle                 : # 
 name                     : &name "David Lee"
 description              : &description "An amazing website."
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
@@ -65,7 +65,7 @@ google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
 # SEO Related
-google_site_verification : nHSNTS-TJkcL3uE3dummSQ_g1E23VVwiNx88-MNGOvI
+google_site_verification : "nHSNTS-TJkcL3uE3dummSQ_g1E23VVwiNx88-MNGOvI"
 bing_site_verification   :
 yandex_site_verification :
 naver_site_verification  :
@@ -97,7 +97,7 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/david.jpg"
-  bio              : "*自律的人才配谈自由*"
+  bio              : "Every single day is a gift, that why called *present*."
   location         : "ChangSha, CN"
   email            : "davidlee1818@163.com"
   links:
@@ -263,6 +263,14 @@ compress_html:
     envs: development
 
 
+
+# Collections note: pages or mds of collections don't hava a comment component
+collections:
+  build-blog:
+    output: true
+    permalink: /:collection/:path/
+
+
 # Defaults
 defaults:
   # _posts
@@ -278,8 +286,20 @@ defaults:
       related: true
   # _pages
   - scope:
-      path: "_pages"
+      path: ""
       type: pages
     values:
       layout: single
       author_profile: true
+
+
+  # _build-blog
+  - scope:
+      path: ""
+      type: build-blog
+    values:
+      layout: single
+      author_profile: false
+      share: true
+
+
