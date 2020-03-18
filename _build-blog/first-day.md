@@ -2,9 +2,8 @@
 title: "搭建博客之第一天" 
 excerpt: "在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！"
 header:
-  overlay_image: /assets/images/unsplash-gallery-image-1-th.jpg
-  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-  teaser: assets/images/unsplash-gallery-image-1-th.jpg
+  overlay_color: "#333"
+  teaser: assets/images/build-blog-01.jpg
 sidebar:
   nav: "foo"
 gallery:

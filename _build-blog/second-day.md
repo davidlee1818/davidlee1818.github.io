@@ -2,21 +2,10 @@
 title: "搭建博客之第二天"
 excerpt: "基于Staticman实现博客的评论功能以及Google reCAPTCHA验证，有点难度不过当你实现后很有成就感哦！"
 header:
-  overlay_image: /assets/images/unsplash-gallery-image-2-th.jpg
-  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
-  teaser: assets/images/unsplash-gallery-image-2-th.jpg
+  overlay_color: "#333"
+  teaser: assets/images/build-blog-02.jpg
 sidebar:
   nav: "foo"
-gallery:
-  - url: /assets/images/unsplash-gallery-image-1.jpg
-    image_path: assets/images/unsplash-gallery-image-1-th.jpg
-    alt: "placeholder image 1"
-  - url: /assets/images/unsplash-gallery-image-2.jpg
-    image_path: assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-  - url: /assets/images/unsplash-gallery-image-3.jpg
-    image_path: assets/images/unsplash-gallery-image-3-th.jpg
-    alt: "placeholder image 3"
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
@@ -56,7 +45,7 @@ https://${bridge_app_name}.herokuapp.com/v2/encrypt/{$recaptcha-site-secret}
 1. 在本机生成rsa密钥对，staticman会用公钥来加密你的reCAPTCHA screte的公共部分，之后使用私钥进行解密。
 2. 登录heroku的cli，可以使用web端设置，也可以下载heroku的client登录。cli设置如下：
 ```
-//staticman无法处理换行,需要处理掉\"\n\" 和 /
+//staticman无法处理换行,需要处理掉\n 和 /
 heroku config:add --app ${bridge_app_name} "RSA_PRIVATE_KEY=$(cat ~/.ssh/staticman_key | tr -d '\n')"
 heroku config:add --app ${bridge_app_name} "GITHUB_TOKEN=${github_token}"
 heroku config --app ${bridge_app_name} //验证参数设置是否正确

@@ -4,6 +4,7 @@ title: " "
 permalink: /
 header:
   overlay_image: /assets/images/home-top.jpg
+  overlay_filter: 0.1
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
   actions:
     - label: "<i class='fa fa-bars' aria-hidden='true'></i> 博客搭建记录"

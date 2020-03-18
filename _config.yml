@@ -12,7 +12,7 @@
 
 remote_theme             : "mmistakes/minimal-mistakes@4.19.1"
 #theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "sunrise" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dirt" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "zh-CN"
@@ -28,7 +28,7 @@ repository               : "davidlee1818/davidlee1818.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/sitelogo.gif"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
-# breadcrumbs            : false # true, false (default)
+breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
 comments:
   provider               : "staticman_v2"   # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
