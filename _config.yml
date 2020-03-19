@@ -204,6 +204,9 @@ sass:
   sass_dir: _sass
   style: compressed # https://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
 
+# comment-reply.js
+after_footer_scripts:
+  - /assets/js/comment-reply.js
 
 # Outputting
 permalink: /:categories/:title/
