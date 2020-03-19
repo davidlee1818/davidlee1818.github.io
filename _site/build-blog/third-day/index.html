@@ -20,20 +20,20 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:title" content="搭建博客之第三天">
-<meta property="og:url" content="http://localhost:4000/build-blog/third-day/">
+<meta property="og:url" content="/build-blog/third-day/">
 
 
   <meta property="og:description" content="用algolia实现博客的搜索功能，并通过travis-ci实现自动更新搜索库， 很简单只要注册并配置好就行了！ ">
 
 
 
-  <meta property="og:image" content="http://localhost:4000/assets/images/build-blog-03.jpg">
+  <meta property="og:image" content="/assets/images/build-blog-03.jpg">
 
 
 
 
 
-  <meta property="article:published_time" content="2020-03-19T02:31:49+08:00">
+  <meta property="article:published_time" content="2020-03-19T15:25:20+08:00">
 
 
 
@@ -44,7 +44,7 @@
   
 
 
-<link rel="canonical" href="http://localhost:4000/build-blog/third-day/">
+<link rel="canonical" href="/build-blog/third-day/">
 
 
 
@@ -55,7 +55,7 @@
     
       "@type": "Person",
       "name": "David Lee",
-      "url": "http://localhost:4000/"
+      "url": "/"
     
   }
 </script>
@@ -190,6 +190,15 @@
 </p>
       
       
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟阅读
+
+</p>
+      
       
       
     </div>
@@ -212,7 +221,7 @@
     
       
         <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">首页</span></a>
+          <a href="/" itemprop="item"><span itemprop="name">首页</span></a>
           <meta itemprop="position" content="1" />
         </li>
         <span class="sep">/</span>
@@ -259,17 +268,17 @@
     
       <li>
         
-          <a href="/build-blog/"><span class="nav__sub-title">1.博客搭建记录</span></a>
+          <a href="/build-blog/"><span class="nav__sub-title">博客搭建记录</span></a>
         
 
         
         <ul>
           
-            <li><a href="/build-blog/first-day/">1.1 准备搭建环境</a></li>
+            <li><a href="/build-blog/first-day/">第一天：准备搭建环境</a></li>
           
-            <li><a href="/build-blog/second-day/">1.2 博客评论及验证</a></li>
+            <li><a href="/build-blog/second-day/">第二天：博客评论及验证</a></li>
           
-            <li><a href="/build-blog/third-day/" class="active">1.2 博客检索</a></li>
+            <li><a href="/build-blog/third-day/" class="active">第三天：博客检索</a></li>
           
         </ul>
         
@@ -287,7 +296,7 @@
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="搭建博客之第三天">
     <meta itemprop="description" content="用algolia实现博客的搜索功能，并通过travis-ci实现自动更新搜索库， 很简单只要注册并配置好就行了！">
-    <meta itemprop="datePublished" content="2020-03-19T02:31:49+08:00">
+    <meta itemprop="datePublished" content="2020-03-19T15:25:20+08:00">
     
 
     <div class="page__inner-wrap">
@@ -363,10 +372,10 @@ bundle exec jekyll algolia
 <ul>
   <li>注册登录<a href="https://travis-ci.org/">travis-ci.org</a>(可以直接使用github账户登录)</li>
   <li>点击你的头像和简介</li>
-  <li>从列表中找到你的github仓库并启用他</li>
+  <li>从列表中找到你的github仓库并启用</li>
 </ul>
 
-<p><img src="http://localhost:4000/assets/images/shortcut-buildblog03.png" alt="image-left" class="align-right" />
+<p><img src="/assets/images/shortcut-buildblog03.png" alt="image-left" class="align-right" />
 取消勾选’Build pull request updates’选项，防止每次你收到pull请求是重新编排索引(评论会触发pull request)</p>
 
 <h2 id="配置travis">配置Travis</h2>
@@ -388,20 +397,15 @@ rvm:
  - 2.4'
 
 </code></pre></div></div>
-<p>This file will be read by Travis and instruct it to fetch all the dependencies defined in the Gemfile through Bundler. It will then run bundle exec jekyll algolia which will actually index your data.</p>
-
-<p>You might have to edit the branches.only value to either master or gh-pages, depending on which branch is configured to be deployed in your GitHub Pages configuration.
-通过<code class="highlighter-rouge">.travis.yml</code>文件Travis能够使用Bundler获得你定义在<code class="highlighter-rouge">Gemfile</code>中的所有依赖，然后执行<code class="highlighter-rouge">bundle exec jekyll algolia</code>对你的数据自动排序。
-设置<code class="highlighter-rouge">branches.only</code>的值，你可以选只对github仓库的某个分支生效，通常来说都是master，取决于你Github pages发布在哪里。</p>
+<p>通过<code class="highlighter-rouge">.travis.yml</code>文件Travis能够使用Bundler获得你定义在<code class="highlighter-rouge">Gemfile</code>中的所有依赖，然后执行<code class="highlighter-rouge">bundle exec jekyll algolia</code>对你的数据自动排序。
+设置<code class="highlighter-rouge">branches.only</code>的值，你可以选择只对Github仓库的某个分支生效，通常来说都是master，取决于你Github pages发布在哪里。</p>
 
 <h2 id="忽略vendor">忽略<code class="highlighter-rouge">vendor</code></h2>
-<p>Travis bundles all gems in the vendor directory on its servers, which Jekyll will mistakenly read. This will likely make the process fail. To avoid this, add vendor to the exclude list in your _config.yml file.
-Travis将他的服务端<code class="highlighter-rouge">vendor</code>目录下所有gems打包，因此Jekyll可以能会错误的读取，这可能会导致执行失败。为了避免这种情况，你应该将<code class="highlighter-rouge">vendor</code>配置到<code class="highlighter-rouge">_config.yml</code>的<code class="highlighter-rouge">exclude</code>列表中。</p>
+<p>Travis将他的服务端<code class="highlighter-rouge">vendor</code>目录下所有gems打包，因此Jekyll可以能会错误的读取，这可能会导致执行失败。为了避免这种情况，你应该将<code class="highlighter-rouge">vendor</code>配置到<code class="highlighter-rouge">_config.yml</code>的<code class="highlighter-rouge">exclude</code>列表中。</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>exclude: [vendor]
 </code></pre></div></div>
 <h2 id="添加algolia_api_key">添加<code class="highlighter-rouge">ALGOLIA_API_KEY</code></h2>
-<p>通过WebUI Travis Settings页面将你的<code class="highlighter-rouge">ALGOLIA_API_KEY</code>作为环境变量传给Travis。
-Commit all the changes you made, and then push your repository. Travis will catch the event and trigger your indexing for you. You can follow the Travis job execution directly on your Travis dashboard, with a full log.</p>
+<p>通过WebUI Travis Settings页面将你的<code class="highlighter-rouge">ALGOLIA_API_KEY</code>作为环境变量传给Travis。</p>
 
 <p>接下来让我们验证一下，提交你所有的修改并push到Github远程仓库，Travis会抓取push事件并触发一个自动排序。你可以通过Travis dashboard查看作业执行的完整日志。</p>
 
@@ -415,7 +419,7 @@ Commit all the changes you made, and then push your repository. Travis will catc
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-19T02:31:49+08:00">March 19, 2020</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-19T15:25:20+08:00">March 19, 2020</time></p>
         
       </footer>
 
@@ -424,11 +428,11 @@ Commit all the changes you made, and then push your repository. Travis will catc
     <h4 class="page__share-title">分享</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B9%8B%E7%AC%AC%E4%B8%89%E5%A4%A9%20http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Fthird-day%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B9%8B%E7%AC%AC%E4%B8%89%E5%A4%A9%20%2Fbuild-blog%2Fthird-day%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Fthird-day%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fbuild-blog%2Fthird-day%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fbuild-blog%2Fthird-day%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=%2Fbuild-blog%2Fthird-day%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="分享 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -444,6 +448,164 @@ Commit all the changes you made, and then push your repository. Travis will catc
   </nav>
 
     </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <section id="static-comments">
+        
+          <!-- Start static comments -->
+          <div class="js-comments">
+            
+              <h4 class="page__comments-title">评论</h4>
+              
+
+              
+                
+                
+                
+                
+                
+                <article id="comment1" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/8fb2ae702052d452a9b7f46309ab9bae?d=mm&s=80" alt="tony">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      
+        <span itemprop="name"><a rel="external nofollow" itemprop="url" href="">tony</a></span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment1" itemprop="url">
+        <time datetime="2020-03-19T13:44:26+08:00" itemprop="datePublished">March 19, 2020 at 05:44 AM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>test comments</p>
+</div>
+  </div>
+</article>
+
+              
+                
+                
+                
+                
+                
+                <article id="comment2" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/8fb2ae702052d452a9b7f46309ab9bae?d=mm&s=80" alt="david">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      
+        <span itemprop="name"><a rel="external nofollow" itemprop="url" href="">david</a></span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment2" itemprop="url">
+        <time datetime="2020-03-19T14:50:21+08:00" itemprop="datePublished">March 19, 2020 at 06:50 AM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>test webhooks</p>
+</div>
+  </div>
+</article>
+
+              
+                
+                
+                
+                
+                
+                <article id="comment3" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment">
+  <div class="comment__avatar-wrapper">
+    <img class="comment__avatar" src="https://www.gravatar.com/avatar/8fb2ae702052d452a9b7f46309ab9bae?d=mm&s=80" alt="david">
+  </div>
+  <div class="comment__content-wrapper">
+    <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      
+        <span itemprop="name"><a rel="external nofollow" itemprop="url" href="">david</a></span>
+      
+    </h3>
+    <p class="comment__date">
+      
+        <a href="#comment3" itemprop="url">
+        <time datetime="2020-03-19T15:05:13+08:00" itemprop="datePublished">March 19, 2020 at 07:05 AM</time>
+        </a>
+      
+    </p>
+    <div itemprop="text"><p>test webhooks again</p>
+</div>
+  </div>
+</article>
+
+              
+            
+          </div>
+          <!-- End static comments -->
+
+          <!-- Start new comment form -->
+          <div class="page__comments-form">
+            <h4 class="page__comments-title">留下评论</h4>
+            <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+            <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://staticman-for-blog.herokuapp.com/v2/entry/davidlee1818/davidlee1818.github.io/master/comments">
+              <div class="form__spinner">
+                <i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>
+                <span class="sr-only">正在加载...</span>
+              </div>
+
+              <div class="form-group">
+                <label for="comment-form-message">评论 <small class="required">*</small></label>
+                <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+                <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">支持 Markdown 语法。</a></div>
+              </div>
+              <div class="form-group">
+                <label for="comment-form-name">姓名 <small class="required">*</small></label>
+                <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+                <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+              </div>
+              <div class="form-group">
+                <label for="comment-form-url">网站（可选）</label>
+                <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+              </div>
+              <div class="form-group hidden" style="display: none;">
+                <input type="hidden" name="options[slug]" value="third-day">
+                <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+                <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+                <input type="hidden" name="options[reCaptcha][siteKey]" value="6LcHr-EUAAAAAPovqifknpBCkQkPQYE9td9FYFHL">
+                <input type="hidden" name="options[reCaptcha][secret]" value="FqCEoC7P0I3luI9VYCBZNLWsyrLq9s7/hfbXo+OZvdKqbj4W3Vl79463iP1DO32yNfT4idIKQqDW9VIoc1HQC40BjE0JUJ6PF8WhXEwQ/D9o0wzMWiXjhPudBNPJiv1VrrV2ro4lXlmRt/YVAP6pzCLnV9cUSjuTDb4Gs9gFMiw+QpcR4zM6rK+h74vO96dsAW7vsB4QuXatTvY8OGfsLBs0DpQPzOnajTbu0ZjzR9T1DLNXWyifdgRh2DXr8g0SLKCXpWQOpJhRwt8sdMZAppLhUKnA48VRKcnP8pDN9UCTPesSJDSHLtZ5MgxZEUKFVWqPorCAHv4EDIALfBEoJbJWIjwH3GM39piHudYmWpKTg66Ua2h5Z8c3H/LF9jHSI1vSIy8qrgTN/iFZFaZ78vgjuRgT0gqWzpqpwwXOiWoSLNo4SXsZ/jEH9KNHK9KINfVgzCJ72rcOHzEjqn3AlR5i+Jus3sJx3BYyI4bf9lnWDHq7llCpKyMTywxwXC9rgWTwm3MkrzMBdyJnCTjEHiO6kl8+r73BTQLFgL0G/5CsMQkpz3/okmVwiu8oISsOUCD2H+HKzUg1RS+zwQTuiy1UrIElpVJuDU6ok3Wvgq1uaTWvPNXC1P2DQff6UulUp3+XXr6wRvr0GZDiwMKV11sVCvJtZVvuQNaxN1d7jPo=">
+              </div>
+              <!-- Start comment form alert messaging -->
+              <p class="hidden js-notice">
+                <strong class="js-notice-text"></strong>
+              </p>
+              <!-- End comment form alert messaging -->
+              
+                <div class="form-group">
+                  <div class="g-recaptcha" data-sitekey="6LcHr-EUAAAAAPovqifknpBCkQkPQYE9td9FYFHL"></div>
+                </div>
+              
+              <div class="form-group">
+                <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--primary btn--large">提交评论</button>
+              </div>
+            </form>
+          </div>
+          <!-- End new comment form -->
+          <!-- china useable recaptcha https://www.google.com/recaptcha/api.js change www.google.com to www.recaptcha.net -->
+          <script async src="https://www.recaptcha.net/recaptcha/api.js"></script>
+        
+      </section>
+    
+</div>
 
     
   </article>
@@ -564,6 +726,63 @@ search.start();
 
 
 
+
+
+  <script>
+  window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+  ga('create','UA-160830260-1','auto');
+  ga('set', 'anonymizeIp', true);
+  ga('send','pageview')
+</script>
+<script src="https://www.google-analytics.com/analytics.js" async></script>
+
+
+
+
+
+
+    
+  <script>
+    (function ($) {
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fas fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+  
 
 
 
