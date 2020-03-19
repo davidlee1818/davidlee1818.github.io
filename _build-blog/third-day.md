@@ -88,7 +88,7 @@ rvm:
 
 ```
 通过`.travis.yml`文件Travis能够使用Bundler获得你定义在`Gemfile`中的所有依赖，然后执行`bundle exec jekyll algolia`对你的数据自动排序。
-设置`branches.only`的值，你可以选只对github仓库的某个分支生效，通常来说都是master，取决于你Github pages发布在哪里。
+设置`branches.only`的值，你可以选择只对github仓库的某个分支生效，通常来说都是master，取决于你Github pages发布在哪里。
  
 ## 忽略`vendor`
 Travis将他的服务端`vendor`目录下所有gems打包，因此Jekyll可以能会错误的读取，这可能会导致执行失败。为了避免这种情况，你应该将`vendor`配置到`_config.yml`的`exclude`列表中。

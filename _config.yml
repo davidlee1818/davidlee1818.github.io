@@ -64,6 +64,9 @@ algolia:
 google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
+  files_to_exclude       :
+    - _pages/home.md
+
 # SEO Related
 google_site_verification : "nHSNTS-TJkcL3uE3dummSQ_g1E23VVwiNx88-MNGOvI"
 bing_site_verification   :
@@ -301,5 +304,6 @@ defaults:
       layout: single
       author_profile: false
       share: true
-
+      read_time: true
+      comments: true
 
