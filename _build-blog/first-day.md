@@ -58,7 +58,7 @@ $> bundle config \'mirror.https://rubygems.org\' \'https://gems.ruby-china.com\'
 $> sudo gem install eventmachine -v '1.2.7' --source 'https://gems.ruby-china.com' -- --with-cppflags=-I/usr/local/opt/openssl/include
 ```
 参数设置也是贼坑，看帮助完全没用！！ 注意 两个\'\-\-\'不能少 还有空格。
-模板用的github mmistakes大佬的jekyll-theme-skinny-bones，装完ruby、rubygem、bundle 之后，解压大佬的zip包 bundle install 安装好 jekyll 就可以自己写博客啦！！  <br/>
+模板用的github mmistakes大佬的jekyll-theme-skinny-bones，装完ruby、rubygems、bundle 之后，解压大佬的zip包 bundle install 安装好 jekyll 就可以自己写博客啦！！  <br/>
 编译: $>bundle exec jekyll build    <br/>
 开启服务器: $>bundle exec jekyll serve    <br/>
 默认本机 127.0.0.0:4000  绑定的本机内网 宿主机进不去的。 <br/>
