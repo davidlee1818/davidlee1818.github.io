@@ -438,11 +438,8 @@ body {
 .comment {
   @include clearfix();
   margin: 1em 0;
-  
-  &:not(:last-child) {
-    border-bottom: 1px solid $border-color;
-  }
 
+  
 }
 
 .comment__avatar-wrapper {
@@ -494,6 +491,23 @@ body {
     text-decoration: none;
   }
 }
+
+// comment reply
+.comment.child {
+  margin-left: 4.5em;
+  #reply__text{
+    border-left: 8px solid silver;
+    padding-left: 0.6em;
+  }
+}
+
+.comment.admin {
+  #reply__text{
+    border-left: 8px solid gold;
+    padding-left: 0.6em;
+  } 
+}
+
 
 /*
    Related

@@ -6,7 +6,7 @@ class="js-comment comment {% if include.name == site.author.name %}admin{% endif
   </div>
   <div class="comment__content-wrapper">
     <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
-      {% unless include.url == blank %}
+      {% unless include.url == empty %}
         <span itemprop="name"><a rel="external nofollow" itemprop="url" href="{{ include.url }}">{{ include.name }}</a></span>
       {% else %}
         <span itemprop="name">{{ include.name }}</span>
@@ -22,7 +22,7 @@ class="js-comment comment {% if include.name == site.author.name %}admin{% endif
         {% if include.index %}</a>{% endif %}
       {% endif %}
     </p>
-    <div itemprop="text">{{ include.message | markdownify }}</div>
+    <div itemprop="text" id="reply__text">{{ include.message | markdownify }}</div>
 	
 <!--  Test reply   -->	 
     {% unless include.replying_to != 0 or page.comments_locked == true %}
