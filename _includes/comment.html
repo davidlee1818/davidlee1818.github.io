@@ -22,9 +22,7 @@ class="js-comment comment {% unless include.replying_to == 0 %}child{% endunless
         {% if include.index %}</a>{% endif %}
       {% endif %}
     </p>
-    <div itemprop="text" id="reply__text">{% if include.name == site.author.name %}<i class="fa fa-home fa-fw" aria-hidden="true"></i>
-{{ include.message | markdownify }}{% endif %}
-    </div>
+    <div itemprop="text" id="reply__text">{{ include.message | markdownify }}</div>
 	
 <!--  Test reply   -->	 
     {% unless include.replying_to != 0 or page.comments_locked == true %}
