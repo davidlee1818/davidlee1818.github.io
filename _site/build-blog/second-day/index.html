@@ -33,7 +33,7 @@
 
 
 
-  <meta property="article:published_time" content="2020-03-20T03:54:44+08:00">
+  <meta property="article:published_time" content="2020-03-20T14:43:37+08:00">
 
 
 
@@ -296,7 +296,7 @@
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="搭建博客之第二天">
     <meta itemprop="description" content="基于Staticman实现博客的评论功能以及Google reCAPTCHA验证，有点难度不过当你实现后很有成就感哦！">
-    <meta itemprop="datePublished" content="2020-03-20T03:54:44+08:00">
+    <meta itemprop="datePublished" content="2020-03-20T14:43:37+08:00">
     
 
     <div class="page__inner-wrap">
@@ -379,7 +379,7 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-20T03:54:44+08:00">March 20, 2020</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-20T14:43:37+08:00">March 20, 2020</time></p>
         
       </footer>
 
@@ -426,10 +426,9 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
           <!-- Start new comment form -->
           <div id="respond" class="page__comments-form" >
             <h4 class="page__comments-title">留下评论
-				<!--Test  reply-->
-				<small><a rel="nofollow" id="cancel-comment-reply-link" href="/build-blog/second-day/#respond" style="display:none;">Cancel reply</a></small>
-				<!--Test  reply-->
-			</h4>
+		<small><a rel="nofollow" id="cancel-comment-reply-link" class="btn btn--danger btn--small"
+                       href="/build-blog/second-day/#respond" style="display:none;">取消回复</a></small>
+	    </h4>
             <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
             <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://staticman-for-blog.herokuapp.com/v2/entry/davidlee1818/davidlee1818.github.io/master/comments">
               <div class="form__spinner">
@@ -456,9 +455,9 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
               </div>
               <div class="form-group hidden" style="display: none;">
                 <input type="hidden" name="options[slug]" value="second-day">
-				<!--start comment replying-to input-->
-				<input type="hidden" id="comment-replying-to" name="fields[replying_to]" value="">
-				<!--end comment replying-to input-->
+		<!--start comment-parent input-->
+		<input type="hidden" id="comment-parent" name="fields[replying_to]" value="">
+		<!--end comment-parent input-->
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 <input type="hidden" name="options[reCaptcha][siteKey]" value="6LcHr-EUAAAAAPovqifknpBCkQkPQYE9td9FYFHL">
@@ -662,16 +661,112 @@ search.start();
       $('.page__comments-form .js-notice-text').html(message);
     }
   })(jQuery);
+
+
+// Staticman comment replies
+  // modified from Wordpress https://core.svn.wordpress.org/trunk/wp-includes/js/comment-reply.js
+  var addComment = {
+    moveForm: function( commId, parentId, respondId, postId ) {
+      var div, element, style, cssHidden,
+        t           = this,
+        comm        = t.I( commId ),
+        respond     = t.I( respondId ),
+        cancel      = t.I( 'cancel-comment-reply-link' ),
+        parent      = t.I( 'comment-parent' ),
+        post        = t.I( 'comment-post-slug' ),
+        commentForm = respond.getElementsByTagName( 'form' )[0];
+
+      if ( ! comm || ! respond || ! cancel || ! parent || ! commentForm ) {
+        return;
+      }
+
+      t.respondId = respondId;
+      postId = postId || false;
+
+      if ( ! t.I( 'sm-temp-form-div' ) ) {
+        div = document.createElement( 'div' );
+        div.id = 'sm-temp-form-div';
+        div.style.display = 'none';
+        respond.parentNode.insertBefore( div, respond );
+      }
+
+      comm.parentNode.insertBefore( respond, comm.nextSibling );
+      if ( post && postId ) {
+        post.value = postId;
+      }
+      parent.value = parentId;
+      cancel.style.display = '';
+
+      cancel.onclick = function() {
+        var t       = addComment,
+          temp    = t.I( 'sm-temp-form-div' ),
+          respond = t.I( t.respondId );
+
+        if ( ! temp || ! respond ) {
+          return;
+        }
+
+        t.I( 'comment-parent' ).value = '0';
+        temp.parentNode.insertBefore( respond, temp );
+        temp.parentNode.removeChild( temp );
+        this.style.display = 'none';
+        this.onclick = null;
+        return false;
+      };
+
+      /*
+       * Set initial focus to the first form focusable element.
+       * Try/catch used just to avoid errors in IE 7- which return visibility
+       * 'inherit' when the visibility value is inherited from an ancestor.
+       */
+      try {
+        for ( var i = 0; i < commentForm.elements.length; i++ ) {
+          element = commentForm.elements[i];
+          cssHidden = false;
+
+          // Modern browsers.
+          if ( 'getComputedStyle' in window ) {
+            style = window.getComputedStyle( element );
+          // IE 8.
+          } else if ( document.documentElement.currentStyle ) {
+            style = element.currentStyle;
+          }
+
+          /*
+           * For display none, do the same thing jQuery does. For visibility,
+           * check the element computed style since browsers are already doing
+           * the job for us. In fact, the visibility computed style is the actual
+           * computed value and already takes into account the element ancestors.
+           */
+          if ( ( element.offsetWidth <= 0 && element.offsetHeight <= 0 ) || style.visibility === 'hidden' ) {
+            cssHidden = true;
+          }
+
+          // Skip form elements that are hidden or disabled.
+          if ( 'hidden' === element.type || element.disabled || cssHidden ) {
+            continue;
+          }
+
+          element.focus();
+          // Stop after the first focusable element.
+          break;
+        }
+
+      } catch( er ) {}
+
+      return false;
+    },
+
+    I: function( id ) {
+      return document.getElementById( id );
+    }
+  };
   </script>
 
 
   
 
 
-
-  
-    <script src="/assets/js/comment-reply.js"></script>
-  
 
 
 

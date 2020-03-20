@@ -1,5 +1,3 @@
-<!--  <article id="comment{{ include.index }}" class="js-comment comment" itemprop="comment" itemscope itemtype="https://schema.org/Comment"> -->
-<!-- Test reply -->
 <article id="comment{% unless include.r %}{{ index | prepend: '-' }}{% else %}{{ include.index | prepend: '-' }}{% endunless %}" 
 class="js-comment comment {% if include.name == site.author.name %}admin{% endif %} {% unless include.replying_to == 0 %}child{% endunless %}"
  itemprop="comment" itemscope itemtype="https://schema.org/Comment">
@@ -16,11 +14,10 @@ class="js-comment comment {% if include.name == site.author.name %}admin{% endif
     </h3>
     <p class="comment__date">
       {% if include.date %}
-		<!-- Test reply -->
-		{% if include.index %}<a href="#comment{% if r %}{{ index | prepend: '-' }}{% else %}{{ include.index | prepend: '-' }}{% endif %}"
-		title="path to this comment" itemprop="url">{% endif %}
-		<!-- Test reply -->
-       <!-- {% if include.index %}<a href="#comment{{ include.index }}" itemprop="url">{% endif %} -->
+	<!-- Test reply -->
+	{% if include.index %}<a href="#comment{% if r %}{{ index | prepend: '-' }}{% else %}{{ include.index | prepend: '-' }}{% endif %}"
+	title="path to this comment" itemprop="url">{% endif %}
+	<!-- Test reply -->
         <time datetime="{{ include.date | date_to_xmlschema }}" itemprop="datePublished">{{ include.date | date: "%B %-d, %Y at %I:%M %p" }}</time>
         {% if include.index %}</a>{% endif %}
       {% endif %}
@@ -28,11 +25,11 @@ class="js-comment comment {% if include.name == site.author.name %}admin{% endif
     <div itemprop="text">{{ include.message | markdownify }}</div>
 	
 <!--  Test reply   -->	 
-	{% unless include.replying_to != 0 or page.comments_locked == true %}
-		<div class="comment__reply">
-		  <a rel="nofollow" class="btn" href="#comment-{{ include.index }}" onclick="return addComment.moveForm('comment-{{ include.index }}', '{{ include.index }}', 'respond', '{{ page.slug }}')">Reply to {{ include.name }}</a>
-		</div>
-	{% endunless %}
+    {% unless include.replying_to != 0 or page.comments_locked == true %}
+      <div class="comment__reply">
+        <a rel="nofollow" class="btn btn--primary" href="#comment-{{ include.index }}" onclick="return addComment.moveForm('comment-{{ include.index }}', '{{ include.index }}', 'respond', '{{ page.slug }}')">{{ site.data.ui-text[site.locale].reply_to | default: "Reply to" }} {{ include.name }}</a>
+      </div>
+    {% endunless %}
 <!--  Test reply   -->
   </div>
  
@@ -40,15 +37,18 @@ class="js-comment comment {% if include.name == site.author.name %}admin{% endif
 
 
 {% capture i %}{{ include.index }}{% endcapture %}
-{% assign replies = site.data.comments[page.slug] | sort | where_exp: 'comment', 'comment[1].replying_to == i' %}
+{% assign replies = site.data.comments[page.slug] | where_exp: "item", "item.replying_to == i" | sort: 'date'%}
 {% for reply in replies %}
+
+<!-- {{ reply | inspect }}  -->
+
   {% assign index       = forloop.index | prepend: '-' | prepend: include.index %}
-  {% assign replying_to = reply[1].replying_to | to_integer %}
-  {% assign avatar      = reply[1].avatar %}
-  {% assign email       = reply[1].email %}
-  {% assign name        = reply[1].name %}
-  {% assign url         = reply[1].url %}
-  {% assign date        = reply[1].date %}
-  {% assign message     = reply[1].message %}
+  {% assign replying_to = reply.replying_to | to_integer %}
+  {% assign avatar      = reply.avatar %}
+  {% assign email       = reply.email %}
+  {% assign name        = reply.name %}
+  {% assign url         = reply.url %}
+  {% assign date        = reply.date %}
+  {% assign message     = reply.message %}
   {% include comment.html index=index replying_to=replying_to avatar=avatar email=email name=name url=url date=date message=message %}
 {% endfor %}

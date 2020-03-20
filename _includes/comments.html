@@ -17,18 +17,20 @@
           <div id="comments" class="js-comments">
             {% if site.data.comments[page.slug] %}
               <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
-              {% assign comments = site.data.comments[page.slug] | sort <!-- Test reply-->| where_exp: 'comment', 'comment.replying_to == null '<!-- Test reply --> %}
+              {% assign comments = site.data.comments[page.slug] | where_exp: 'item', 'item.replying_to == empty' | sort: 'date'%}
 
-              {% for comment in comments %}
-				{% assign index       = forloop.index %}
-				{% assign replying_to = comment[1].replying_to | to_integer %}
-				{% assign avatar      = comment[1].avatar %}
-				{% assign email       = comment[1].email %}
-				{% assign name        = comment[1].name %}
-				{% assign url         = comment[1].url %}
-				{% assign date        = comment[1].date %}
-				{% assign message     = comment[1].message %}
-				{% include comment.html index=index replying_to=replying_to avatar=avatar email=email name=name url=url date=date message=message %}
+              <!--  {{ comment | inspect }}  --> 
+
+	      {% for comment in comments %} 
+		{% assign index       = forloop.index %}
+		{% assign replying_to = comment.replying_to | to_integer %}
+		{% assign avatar      = comment.avatar %}
+		{% assign email       = comment.email %}
+		{% assign name        = comment.name %}
+		{% assign url         = comment.url %}
+		{% assign date        = comment.date %}
+		{% assign message     = comment.message %}
+		{% include comment.html index=index replying_to=replying_to avatar=avatar email=email name=name url=url date=date message=message %}
               {% endfor %}
             {% endif %}
           </div>
@@ -38,10 +40,9 @@
           <!-- Start new comment form -->
           <div id="respond" class="page__comments-form" >
             <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_label | default: "Leave a Comment" }}
-				<!--Test  reply-->
-				<small><a rel="nofollow" id="cancel-comment-reply-link" href="{{ page.url | absolute_url }}#respond" style="display:none;">Cancel reply</a></small>
-				<!--Test  reply-->
-			</h4>
+		<small><a rel="nofollow" id="cancel-comment-reply-link" class="btn btn--danger btn--small"
+                       href="{{ page.url | absolute_url }}#respond" style="display:none;">{{ site.data.ui-text[site.locale].cancel_reply | default: "Cancel Reply" }}</a></small>
+	    </h4>
             <p class="small">{{ site.data.ui-text[site.locale].comment_form_info | default: "Your email address will not be published. Required fields are marked" }} <span class="required">*</span></p>
             <form id="new_comment" class="page__comments-form js-form form" method="post" action="{{ site.comments.staticman.endpoint | default: 'https://api.staticman.net/v2/entry/' }}{{ site.repository }}/{{ site.comments.staticman.branch }}/comments">
               <div class="form__spinner">
@@ -68,9 +69,9 @@
               </div>
               <div class="form-group hidden" style="display: none;">
                 <input type="hidden" name="options[slug]" value="{{ page.slug }}">
-				<!--start comment replying-to input-->
-				<input type="hidden" id="comment-replying-to" name="fields[replying_to]" value="">
-				<!--end comment replying-to input-->
+		<!--start comment-parent input-->
+		<input type="hidden" id="comment-parent" name="fields[replying_to]" value="">
+		<!--end comment-parent input-->
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 {% if site.reCaptcha.siteKey %}<input type="hidden" name="options[reCaptcha][siteKey]" value="{{ site.reCaptcha.siteKey }}">{% endif %}

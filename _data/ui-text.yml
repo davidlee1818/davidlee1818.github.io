@@ -25,6 +25,10 @@ en: &DEFAULT_EN
   date_label                 : "Updated:"
   comments_label             : "Leave a comment"
   comments_title             : "Comments"
+# add reply ui text
+  reply_to		     : "Reply to"
+  cancel_reply		     : "Cancel reply"
+# add reply ui text
   more_label                 : "Learn more"
   related_label              : "You may also enjoy"
   follow_label               : "Follow:"
@@ -391,6 +395,10 @@ zh: &DEFAULT_ZH_HANS
   date_label                 : "更新时间:"
   comments_label             : "留下评论"
   comments_title             : "评论"
+# add reply ui text
+  reply_to		     : "回复"
+  cancel_reply		     : "取消回复"
+# add reply ui text
   more_label                 : "了解更多"
   related_label              : "猜您还喜欢"
   follow_label               : "关注:"
