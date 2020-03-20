@@ -33,7 +33,7 @@
 
 
 
-  <meta property="article:published_time" content="2020-03-19T15:25:20+08:00">
+  <meta property="article:published_time" content="2020-03-20T03:54:44+08:00">
 
 
 
@@ -296,7 +296,7 @@
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="搭建博客之第二天">
     <meta itemprop="description" content="基于Staticman实现博客的评论功能以及Google reCAPTCHA验证，有点难度不过当你实现后很有成就感哦！">
-    <meta itemprop="datePublished" content="2020-03-19T15:25:20+08:00">
+    <meta itemprop="datePublished" content="2020-03-20T03:54:44+08:00">
     
 
     <div class="page__inner-wrap">
@@ -379,7 +379,7 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-19T15:25:20+08:00">March 19, 2020</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 更新时间:</strong> <time datetime="2020-03-20T03:54:44+08:00">March 20, 2020</time></p>
         
       </footer>
 
@@ -417,14 +417,19 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
       <section id="static-comments">
         
           <!-- Start static comments -->
-          <div class="js-comments">
+          <div id="comments" class="js-comments">
             
           </div>
           <!-- End static comments -->
 
+
           <!-- Start new comment form -->
-          <div class="page__comments-form">
-            <h4 class="page__comments-title">留下评论</h4>
+          <div id="respond" class="page__comments-form" >
+            <h4 class="page__comments-title">留下评论
+				<!--Test  reply-->
+				<small><a rel="nofollow" id="cancel-comment-reply-link" href="/build-blog/second-day/#respond" style="display:none;">Cancel reply</a></small>
+				<!--Test  reply-->
+			</h4>
             <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
             <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://staticman-for-blog.herokuapp.com/v2/entry/davidlee1818/davidlee1818.github.io/master/comments">
               <div class="form__spinner">
@@ -451,6 +456,9 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
               </div>
               <div class="form-group hidden" style="display: none;">
                 <input type="hidden" name="options[slug]" value="second-day">
+				<!--start comment replying-to input-->
+				<input type="hidden" id="comment-replying-to" name="fields[replying_to]" value="">
+				<!--end comment replying-to input-->
                 <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
                 <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
                 <input type="hidden" name="options[reCaptcha][siteKey]" value="6LcHr-EUAAAAAPovqifknpBCkQkPQYE9td9FYFHL">
@@ -474,7 +482,10 @@ https://${bridge_app_name}.herokuapp.com/v2/connect/${github-username}/${blog-re
           <!-- End new comment form -->
           <!-- china useable recaptcha https://www.google.com/recaptcha/api.js change www.google.com to www.recaptcha.net -->
           <script async src="https://www.recaptcha.net/recaptcha/api.js"></script>
-        
+<!-- Test reply -->
+
+<!-- Test reply -->		
+		
       </section>
     
 </div>
@@ -657,6 +668,10 @@ search.start();
   
 
 
+
+  
+    <script src="/assets/js/comment-reply.js"></script>
+  
 
 
 

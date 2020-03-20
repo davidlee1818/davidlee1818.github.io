@@ -17,7 +17,7 @@
           <div id="comments" class="js-comments">
             {% if site.data.comments[page.slug] %}
               <h4 class="page__comments-title">{{ site.data.ui-text[site.locale].comments_title | default: "Comments" }}</h4>
-              {% assign comments = site.data.comments[page.slug] | sort <!-- Test reply-->| where_exp: 'comment', 'comment[1].replying_to == blank'<!-- Test reply --> %}
+              {% assign comments = site.data.comments[page.slug] | sort <!-- Test reply-->| where_exp: 'comment', 'comment.replying_to == null '<!-- Test reply --> %}
 
               {% for comment in comments %}
 				{% assign index       = forloop.index %}
