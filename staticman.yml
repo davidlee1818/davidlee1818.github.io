@@ -17,7 +17,7 @@ comments:
   # When allowedOrigins is defined, only requests sent from one of the domains
   # listed will be accepted. The origin is sent as part as the `options` object
   # (e.g. <input name="options[origin]" value="http://yourdomain.com/post1")
-  # allowedOrigins: ["davidlee1818.github.io"]
+  # allowedOrigins: []
 
   # (*) REQUIRED
   #
@@ -73,12 +73,12 @@ comments:
     # (!) ENCRYPTED
     #
     # Mailgun API key
-    # apiKey: "lasxRPR6wraBamXOuU/mYLeD1fYxG5MJvmvUq6meRO41+PbVuAtOBADxLOYIaS4j1+xR4nDmN6EBr/LE8NSTXUz/UKztLABzMLBmPINdYDvnWn0DZ6IQlDoEAhqSSCHSaDYvkpGW4YBjgvatBAcRYy8E1adMricfqac5T+utZ8J4DxdQvgWua0yMYDDwi+xzRLkwlycSlXJSXPOw49qOFQkdICRhCY55kQr3WrNXXl0DpNICrUM/smxPwa/B7vi/qMMhrBhCf6isEok0cWUeQ/FLK/+l1MM4NUEcS14wrcOmHlkE4rzace7HiKqKGmXGHI6TUFsuV18lNUUuPypNoW7DignL8ODAUzu4WFcnf4oli4BT3++I5vn5OOjJaRDbZ68SJt3NdWn1Vqc1GurSQllTjh+jaH6v6H6MdgYKsuywXwRqgMJMzZo3upMDB6FkZtui1hkurC/9xszLxyGDX7QPhKNOnS/2CDZCxuNGu7ZjJnUSrEAT1p6cx1cIxnBVLY7V+vO+0Z5wCYwb0PZILE6YegB+CJ7dRA5Pb8LC2sQXA4OTfnKOHjXBfmLlrSR1GJTqN9w0oQvHsqVBzLP09egj1/idy8BPacJOkb9sOgf7B5+HKT48QEB4wA5JrIWlIWPBuRSXnCvK7EDf9hTzaDbdSR8qV70Bc7LKCu1Wz00="
+    # apiKey:
 
     # (!) ENCRYPTED
     #
     # Mailgun domain (encrypted)
-    # domain: "FUQoUhDZVV/7FeX1XDF6Wb6ToWImWtXUB32Grt7kHTxpXuX2sazBeFUyhcQiKQq+M6sKzCAFsX4Jv5/JlCt8o/+4D1iI9fysPTLHQLqT3XxW7jlfOEUAPARSVlkrrCza/TdqaUjyBLuCQkWef7EQ0dmHgWTRqZJypfyVYqABE4C8LXp3K7mW1+1Cefzzx6SGoCJ7c0aDKUb8TzIBtXq4EsNKdBGBsGem7piYZz0GpuqqgSQxHBPsPgctYneg/EnhkeEzngi+BC/SpmexzFwAsFu4ZJu0z6fFD0+hzQ1ku1kzAGrJmmRoZNsx5mMl9yfhGAUtst5b2rV65s/xCJlXGadsH/kB1qOn8Jnzr4zSRfPFZP4YdFMQZhOjXg4VNlIAv5I9H8fVZqGZXrpTn2YdiUuJoALb5RpOtvxXMfRrEMVDwXpbsCdttGtbTbmVj08dnZBCwwvrPy2hiNnccJzZvzIX25+rFhtRFN5Htm/n9h5lb+HjhrSR3INoFgKDw83FK2ImgIvh5tdWAvssuGu6nrSEzMTDRiP7YOn6B1nCKLKZuYwvHdA65kt6N+vsYBkhy+G22CQPHColBMDjZtV1zAZA5jyaGoLhpiCmhBZmLRQK9JP64nqmjBy91IciiDw/f6EGzJH4P6qUsnyUfINWqE8XvSAjugspqMQQF8fiMaY="
+    # domain: 
 
   # (*) REQUIRED
   #
