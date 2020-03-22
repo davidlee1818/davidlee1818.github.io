@@ -1,9 +1,9 @@
 ---
 title: "搭建博客之第四天"
-excerpt: "通过staticman实现nested comment"
+excerpt: "通过staticman实现nested comment，太难了！"
 header:
   overlay_color: "#333"
-  teaser: assets/images/build-blog-03.jpg
+  teaser: assets/images/build-blog-04.jpg
 sidebar:
   nav: "foo"
 toc: true
