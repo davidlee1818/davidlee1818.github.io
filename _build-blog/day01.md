@@ -6,16 +6,6 @@ header:
   teaser: assets/images/build-blog-01.jpg
 sidebar:
   nav: "foo"
-gallery:
-  - url: /assets/images/unsplash-gallery-image-1.jpg
-    image_path: assets/images/unsplash-gallery-image-1-th.jpg
-    alt: "placeholder image 1"
-  - url: /assets/images/unsplash-gallery-image-2.jpg
-    image_path: assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-  - url: /assets/images/unsplash-gallery-image-3.jpg
-    image_path: assets/images/unsplash-gallery-image-3-th.jpg
-    alt: "placeholder image 3"
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
@@ -28,7 +18,7 @@ toc_icon: "cog"
 1. Ubuntu各种黑屏
 2. 速度拉跨的gems源
 3. bundle install 提示找不到openssl
-{% include gallery caption="This is a sample gallery to go along with this case study." %}
+
 ### 解决ubuntu各种黑屏 
 #### 方法一 
 $> vim /etc/default/grub  <br/>
