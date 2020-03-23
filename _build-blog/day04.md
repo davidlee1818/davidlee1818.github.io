@@ -12,9 +12,8 @@ toc_icon: "cog"
 ---
 ## 膜拜大佬
 老规矩大佬帖子先贴上 [**here**](https://mademistakes.com/articles/improving-jekyll-static-comments/)，看完大佬写的netsted comment文章后，手痒于是准备动手去做，拿到源码后一看完全是一脸懵逼。一连串的html文本嵌套着看不懂的liquid代码。
-{% raw %}
-~~~liquid
-{% assign comments = site.data.comments[page.slug] | sort | where_exp: "comment", "comment[1].replying_to == blank" %}
+```liquid
+{% raw %}{% assign comments = site.data.comments[page.slug] | sort | where_exp: "comment", "comment[1].replying_to == blank" %}
 {% for comment in comments %}
   {% assign avatar      = comment[1].avatar %}
   {% assign email       = comment[1].email %}
@@ -23,9 +22,8 @@ toc_icon: "cog"
   {% assign date        = comment[1].date %}
   {% assign message     = comment[1].message %}
   {% include comment.html avatar=avatar email=email name=name url=url date=date message=message %}
-{% endfor %}
-~~~
-{% endraw %}
+{% endfor %}{% endraw %}
+```
 更痛苦的是，大佬攻略是17年写的，在这之后代码更迭了好多，完全无法下手。几次尝试后，问题不断地出现，原本可以的评论全都不能显示了，js中的方法各种出错。折磨了一个晚上后，实在受不了准备放弃了，可心里还有些不甘心。
 ## 艰难的第一步  
 可是程序员强迫症犯了，看到bug解决不了是真睡不着！没忍住我又去看了一遍攻略。当我再翻到大佬攻略评论后面时，看到有人已经实现了，我进到他的仓库里面，去找他的代码，发现跟我之前的思路差不多。对于更迭之后的html样式不做修改，只添加核心的liquid循环。并且我发现之所以js方法一直提示找不到，原来所有js已经被打包了，也就是说要修改js要重新编译打包才能生效。
