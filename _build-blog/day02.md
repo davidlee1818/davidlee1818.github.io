@@ -9,6 +9,8 @@ sidebar:
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
+categories: [artices]
+tags: [web development, jekyll, heroku, reCAPTCHA]
 ---
 
 

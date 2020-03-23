@@ -9,6 +9,9 @@ sidebar:
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
+categories: [artices]
+tags: [web development, jekyll, staticman]
+
 ---
 ## 膜拜大佬
 老规矩大佬帖子先贴上 [**here**](https://mademistakes.com/articles/improving-jekyll-static-comments/)，看完大佬写的netsted comment文章后，手痒于是准备动手去做，拿到源码后一看完全是一脸懵逼。一连串的html文本嵌套着看不懂的liquid代码。
@@ -33,15 +36,12 @@ toc_icon: "cog"
 现在最大的问题是liquid loops我该怎么加进去。一堆大括号，管道符，什么unless，看得让人头皮发麻！！没办法想要实现，就必须看懂他的思路。虽说编译语言有很多种，但大多都是大同小异。代码肯定有英文单词，那就大概能猜到某段代码块在干什么。不禁感叹为什么就没一款中文编译语言呢！！不过想想中文博大精深，一句话语气不同意思也不一样！！看来没有也是有原因的。无奈只能一点点渗透进去，从单词猜语法到测试去验证，这是唯一的办法了。由于是17年的文章，很多东西都更新了，需要慢慢调试。不过好在文章下面，有一堆哥们已经问过大佬一堆问题了，解决了不少问题，思路也捋清了。
 
 考虑到复杂性，回复只深入到一层。回复字段对应着replying_to,对于parent comment的字段应该为empty。那么就需要一个隐藏的input输入框去填充这个字段，对于回复而言也就是child comment字段也应该是对应的parent字段。那么我们就必须对parent comment排序并建立索引。
-{% raw %}
-~~~liquid
-{% assign index = forloop.index %} 
-~~~
-{% endraw %}
+```liquid
+{% raw %}{% assign index = forloop.index %}{% endraw %}
+```
 这段代码跟我们jstl标签差不多，在循环中赋值唯一且有序的index。对于显示评论我们应该用两层循环，外层循环找出replying_to为empty的parent comment，而内层循环找出对应的child comment然后通过include comment.html去显示每一条评论。
-{% raw %}
-~~~liquid
-{% capture i %}{{ include.index }}{% endcapture %}
+```liquid
+{% raw %}{% capture i %}{{ include.index }}{% endcapture %}
 {% assign replies = site.data.comments[page.slug] | sort | where_exp: "comment", "comment[1].replying_to == i" %}
 {% for reply in replies %}
   {% assign index       = forloop.index | prepend: '-' | prepend: include.index %}
@@ -53,9 +53,8 @@ toc_icon: "cog"
   {% assign date        = reply[1].date %}
   {% assign message     = reply[1].message %}
   {% include comment.html index=index replying_to=replying_to avatar=avatar email=email name=name url=url date=date message=message %}
-{% endfor %}
-~~~
-{% endraw %}
+{% endfor %}{% endraw %}
+```
 并且当我们点击回复按钮时，对应的reply也就是一条新的comment replying_to字段应该为它patent的index,而取消回复时该字段应该被重置为empty。
 思路清晰了，问题解决起来也就自然而然轻松多了，剩下的只是调优，以及一些css样式的处理。虽说功能很简单，但是对于我来说能用liquid语法做出来，心里那种兴奋和满足感无以言表。
 ## 收获及感悟
