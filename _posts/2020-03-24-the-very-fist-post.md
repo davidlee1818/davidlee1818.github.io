@@ -15,7 +15,7 @@ Now we're in the 21st century, things are moving so fast, technologies are going
 Due to some reasons, we just can't stick it out. to be honestly, keep a blog is definitely hard work, we have to collect all kinds of artices and organize ideas. most of blogers would failed because of the lack of passion and concentration. the truth is, your level of success depends on why and what you’re blogging for.
 {% include figure image_path="/assets/images/firstPost-image-01.jpg" alt="this is a placeholder image" caption="Photo by Collin Armstrong on Unsplash." %}
 ## The very first baby step is always important
-Let's digging in blogging, There is no need to write something professional, just write down the things you have been through or the people you met. But always keep in mind, organizing the ideas and make it clearly to your audience is the key point. 
+Let's digging in blogging, There is no need to write something professional, just write down the things you have been through or the people you met. But always keep in mind, organizing the ideas and make it clearly to your audience are the key points. 
 
 At the begainning, it will be very tough in physically and mentally. just like me right now, especially with English. it's almost killing me. what a stupid idead!🤣 but come down, have a deep breath. The more you write, the easier it will be. And It's very benefited for you.
 ## You will learn a lot!
