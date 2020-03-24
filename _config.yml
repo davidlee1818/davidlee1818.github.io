@@ -26,7 +26,7 @@ baseurl                  : # the subpath of your site, e.g. "/blog"
 # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 repository               : "davidlee1818/davidlee1818.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/assets/images/sitelogo.gif"
+logo                     : "/assets/images/homepage/sitelogo.gif"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : true # true, false (default)
 words_per_minute         : 200
@@ -99,7 +99,7 @@ analytics:
 # Site Author
 author:
   name             : *name
-  avatar           : "/assets/images/david.jpg"
+  avatar           : "/assets/images/homepage/david.jpg"
   bio              : "Every single day is a gift, that why called *present*."
   location         : "ChangSha, CN"
   email            : "davidlee1818@163.com"

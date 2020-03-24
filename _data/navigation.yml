@@ -4,11 +4,8 @@ main:
     url: /recent/
   - title: "Collections"
     url: /collection-archive/
-  - title: "Sitemap"
-    url: /sitemap/
 
-
-foo:
+buildblog:
   - title: "博客搭建记录"
     url: /build-blog/
     children :

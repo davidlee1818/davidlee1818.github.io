@@ -3,9 +3,9 @@ title: "搭建博客之第一天"
 excerpt: "在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！"
 header:
   overlay_color: "#333"
-  teaser: assets/images/build-blog-01.jpg
+  teaser: assets/images/build-blog/build-blog-01.jpg
 sidebar:
-  nav: "foo"
+  nav: "buildblog"
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"

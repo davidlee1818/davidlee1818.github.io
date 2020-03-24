@@ -4,9 +4,9 @@ excerpt: "用[**algolia**](http://www.algolia.com)实现博客的搜索功能，
 很简单只要注册并配置好就行了！"
 header:
   overlay_color: "#333"
-  teaser: assets/images/build-blog-03.jpg
+  teaser: assets/images/build-blog/build-blog-03.jpg
 sidebar:
-  nav: "foo"
+  nav: "buildblog"
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
@@ -65,7 +65,7 @@ ALGOLIA_API_KEY=your_admin_api_key bundle exec jekyll algolia
  - 从列表中找到你的github仓库并启用 
 
 
-![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/shortcut-buildblog03.png){: .align-right}
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/build-blog/shortcut-buildblog03.png){: .align-right}
 取消勾选'Build pull request updates'选项，防止每次你收到pull请求是重新编排索引(评论会触发pull request)
 
 ## 配置Travis
