@@ -20,9 +20,9 @@ feature_row:
     btn_label: "Learn more"
   - image_path: /assets/images/homepage/home-program.jpg
     image_caption: "[**Unsplash**](https://unsplash.com)"
-    alt: "项目详细记录"
-    title: "项目详细记录"
-    excerpt: "这是我做过的一些项目，详细记录下来复习总结一遍，与你们一起分享、成长。"
+    alt: "大数据框架"
+    title: "大数据框架"
+    excerpt: "这是我学过的一些大数据技术框架，记录下来复习总结一遍，与你们一起分享、成长。"
     url: "/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
