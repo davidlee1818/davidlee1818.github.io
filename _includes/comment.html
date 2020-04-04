@@ -6,11 +6,14 @@ class="js-comment comment {% unless include.replying_to == 0 %}child{% endunless
   </div>
   <div class="comment__content-wrapper">
     <h3 class="comment__author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+      <span itemprop="name">{{ include.name }}</span>
+<!-- remove url
       {% unless include.url == empty %}
         <span itemprop="name"><a rel="external nofollow" itemprop="url" href="{{ include.url }}">{{ include.name }}</a></span>
       {% else %}
         <span itemprop="name">{{ include.name }}</span>
       {% endunless %}
+-->
     </h3>
     <p class="comment__date">
       {% if include.date %}
