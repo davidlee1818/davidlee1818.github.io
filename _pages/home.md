@@ -1,6 +1,6 @@
 ---
 layout: splash
-title: ""
+title: "HomePage"
 permalink: /
 header:
   overlay_image: /assets/images/homepage/home-top.jpg

@@ -62,7 +62,7 @@ algolia:
   search_only_api_key    : 0cd684ec0d6703ccc59ff0329272935d
   powered_by             : true # true (default), false
   files_to_exclude       :
-    - _pages/home.md
+    - recent/index.html
 google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
