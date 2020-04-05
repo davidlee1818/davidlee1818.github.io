@@ -309,6 +309,5 @@ defaults:
       layout: single
       author_profile: false
       share: true
-      read_time: true
       comments: true
 
