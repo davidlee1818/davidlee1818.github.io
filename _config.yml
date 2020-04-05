@@ -101,7 +101,7 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/homepage/david.jpg"
-  bio              : "Every single day is a gift, that why called *present*."
+  bio              : "*Every single day is a gift that why called present.*"
   location         : "ChangSha, CN"
   email            : "davidlee1818@163.com"
   links:
