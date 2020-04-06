@@ -277,6 +277,9 @@ collections:
   build-blog:
     output: true
     permalink: /:collection/:path/
+  life-notes:
+    output: true
+    permalink: /:collection/:path/
 
 
 # Defaults
@@ -305,6 +308,16 @@ defaults:
   - scope:
       path: ""
       type: build-blog
+    values:
+      layout: single
+      author_profile: false
+      share: true
+      comments: true
+
+  # _life-notes
+  - scope:
+      path: ""
+      type: life-notes
     values:
       layout: single
       author_profile: false

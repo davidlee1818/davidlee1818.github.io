@@ -18,3 +18,9 @@ buildblog:
       - title: "第四天：评论回复"
         url: /build-blog/day04/
 
+lifenotes:
+  - title: "生活摘记"
+    url: /life-notes/
+    children :
+      - title: "Before you waste your time"
+        url: /life-notes/before-you-waste-your-time/
