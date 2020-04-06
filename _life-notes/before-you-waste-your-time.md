@@ -10,7 +10,7 @@ toc: true
 toc_label: "本页目录"
 toc_icon: "cog"
 ---
-<iframe src="//player.bilibili.com/player.html?aid=46747903&bvid=BV18b411E7Kq&cid=81883296&page=1" width="650px" height="600px" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe class="iframe_video" src="//player.bilibili.com/player.html?aid=46747903&bvid=BV18b411E7Kq&cid=81883296&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 ## What is time meaning?
 When asked: “What’s the biggest mistake we make in life?” The Buddha replied, “The biggest mistake is you think you have time..”

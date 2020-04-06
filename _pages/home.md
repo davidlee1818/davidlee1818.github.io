@@ -14,7 +14,7 @@ feature_row:
     image_caption: "[**Unsplash**](https://unsplash.com)"
     alt: "生活摘记"
     title: "生活摘记"
-    excerpt: "当我们迷茫时，需要一些东西指引自己，坚持自己，热爱生活，追求梦想。"
+    excerpt: "当我们迷茫、困惑、沮丧时，需要一些东西指引自己，激励自己，热爱生活，追求梦想。"
     url: "/life-notes"
     btn_class: "btn--primary"
     btn_label: "Learn more"
