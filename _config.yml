@@ -63,7 +63,7 @@ algolia:
   powered_by             : true # true (default), false
   files_to_exclude       :
     - recent/index.html
-    - _pages
+    - _pages/*
 google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
