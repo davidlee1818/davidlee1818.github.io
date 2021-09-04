@@ -24,3 +24,10 @@ lifenotes:
     children :
       - title: "Before you waste your time"
         url: /life-notes/before-you-waste-your-time/
+
+bigdata:
+  - title: "大数据框架"
+    url: /bigdata-framework/
+    children :
+      - title: "大数据技术之hadoop"
+        url: /bigdata-framework/hadoop/

@@ -15,7 +15,7 @@ feature_row:
     alt: "生活摘记"
     title: "生活摘记"
     excerpt: "当我们迷茫、困惑、沮丧时，需要一些东西指引自己，激励自己，热爱生活，追求梦想。"
-    url: "/life-notes"
+    url: "/life-notes/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/homepage/home-write.jpg
@@ -31,7 +31,7 @@ feature_row:
     alt: "大数据框架"
     title: "大数据框架"
     excerpt: "这是我学过的一些大数据技术框架，记录下来复习总结一遍，与你们一起分享、成长。"
-    url: "/"
+    url: "/bigdata-framework/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
 ---
