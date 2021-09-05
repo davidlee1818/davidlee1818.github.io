@@ -157,18 +157,18 @@ MapReduce将计算过程分为两个阶段：Map和Reduce，如下图所示
    * 查看Hadoop目录结构
 
 	```shell	
-	[atguigu@hadoop101 hadoop-2.7.2]$ ll
+	[centos@hadoop101 hadoop-2.7.2]$ ll
 	总用量 52
-	drwxr-xr-x. 2 atguigu atguigu  4096 5月  22 2017 bin
-	drwxr-xr-x. 3 atguigu atguigu  4096 5月  22 2017 etc
-	drwxr-xr-x. 2 atguigu atguigu  4096 5月  22 2017 include
-	drwxr-xr-x. 3 atguigu atguigu  4096 5月  22 2017 lib
-	drwxr-xr-x. 2 atguigu atguigu  4096 5月  22 2017 libexec
-	-rw-r--r--. 1 atguigu atguigu 15429 5月  22 2017 LICENSE.txt
-	-rw-r--r--. 1 atguigu atguigu   101 5月  22 2017 NOTICE.txt
-	-rw-r--r--. 1 atguigu atguigu  1366 5月  22 2017 README.txt
-	drwxr-xr-x. 2 atguigu atguigu  4096 5月  22 2017 sbin
-	drwxr-xr-x. 4 atguigu atguigu  4096 5月  22 2017 share
+	drwxr-xr-x. 2 centos centos  4096 5月  22 2017 bin
+	drwxr-xr-x. 3 centos centos  4096 5月  22 2017 etc
+	drwxr-xr-x. 2 centos centos  4096 5月  22 2017 include
+	drwxr-xr-x. 3 centos centos  4096 5月  22 2017 lib
+	drwxr-xr-x. 2 centos centos  4096 5月  22 2017 libexec
+	-rw-r--r--. 1 centos centos 15429 5月  22 2017 LICENSE.txt
+	-rw-r--r--. 1 centos centos   101 5月  22 2017 NOTICE.txt
+	-rw-r--r--. 1 centos centos  1366 5月  22 2017 README.txt
+	drwxr-xr-x. 2 centos centos  4096 5月  22 2017 sbin
+	drwxr-xr-x. 4 centos centos  4096 5月  22 2017 share
 	```
 
    * 重要目录
