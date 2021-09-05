@@ -29,5 +29,5 @@ bigdata:
   - title: "大数据框架"
     url: /bigdata-framework/
     children :
-      - title: "大数据技术之hadoop"
-        url: /bigdata-framework/hadoop/
+      - title: "大数据技术之hadoop(入门)"
+        url: /bigdata-framework/hadoop01/
