@@ -275,7 +275,7 @@ $>hadoop fs -ls
 	名称节点 http://localhost:50070/ 
 	资源管理器 http://localhost:8088/
 	mr历史作业服务器http://localhost:19888/  
-	还可以同java命令jps查看相应的进程是否启动成功 */
+	还可以通过java命令jps查看相应的进程是否启动成功 */
 	//关闭hdfs、yarn、mr历史作业服务器进程
 	$> stop-dfs.sh
 	$> stop-yarn.sh
@@ -322,7 +322,7 @@ $>hadoop fs -ls
 	(b)期望脚本：  
 	   xsync 要同步的文件名称  
 	(c)说明：  
-	在/usr/local/sbin这个目录下存放的脚本，用户可以在系统任何地方直接执行。  
+	在/usr/local/bin这个目录下存放的脚本，用户可以在系统任何地方直接执行。  
       脚本实现：
 		```shell
 		$> cd /usr/local/sbin
@@ -444,7 +444,7 @@ $>hadoop fs -ls
 	//hadoop100上应该有nn、dn进程 
 	//hadoop101应该有rm、dn进程 
 	//hadoop102应该有2nn、dn进程
-	//如果某个节点有进程没有启动成功，手写去该节点查看日志。
+	//如果某个节点有进程没有启动成功，首先去该节点查看日志。
 	//解决问题后通过以下命令单点启动
 	$>hadoop-daemon.sh start xxx(namenode后者datanode)
 	$>yarn-daemon.sh start xxx(resourcemanager后者nodemanager)
@@ -455,61 +455,61 @@ $>hadoop fs -ls
 	配置时间同步具体实操：
    1. 时间服务器配置（必须root用户）
         * 检查ntp是否安装
-		```shell
-		[root@hadoop100 /]# rpm -qa|grep ntp
-		ntp-4.2.6p5-10.el6.centos.x86_64
-		fontpackages-filesystem-1.41-1.1.el6.noarch
-		ntpdate-4.2.6p5-10.el6.centos.x86_64
-		```
+	```shell
+	[root@hadoop100 /]# rpm -qa|grep ntp
+	ntp-4.2.6p5-10.el6.centos.x86_64
+	fontpackages-filesystem-1.41-1.1.el6.noarch
+	ntpdate-4.2.6p5-10.el6.centos.x86_64
+	```
         * 修改ntp配置文件
-		```shell
-		[root@hadoop100 /]# vi /etc/ntp.conf
-		修改内容如下
-		a）修改1（授权192.168.1.0-192.168.1.255网段上的所有机器可以从这台机器上查询和同步时间）
-		#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap为
-		restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
-		b）修改2（集群在局域网中，不使用其他互联网上的时间）
-		server 0.centos.pool.ntp.org iburst
-		server 1.centos.pool.ntp.org iburst
-		server 2.centos.pool.ntp.org iburst
-		server 3.centos.pool.ntp.org iburst为
-		#server 0.centos.pool.ntp.org iburst
-		#server 1.centos.pool.ntp.org iburst
-		#server 2.centos.pool.ntp.org iburst
-		#server 3.centos.pool.ntp.org iburst
-		c）添加3（当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步）
-		server 127.127.1.0
-		fudge 127.127.1.0 stratum 10
-		```
+	```shell
+	[root@hadoop100 /]# vi /etc/ntp.conf
+	修改内容如下
+	a）修改1（授权192.168.1.0-192.168.1.255网段上的所有机器可以从这台机器上查询和同步时间）
+	#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap为
+	restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
+	b）修改2（集群在局域网中，不使用其他互联网上的时间）
+	server 0.centos.pool.ntp.org iburst
+	server 1.centos.pool.ntp.org iburst
+	server 2.centos.pool.ntp.org iburst
+	server 3.centos.pool.ntp.org iburst为
+	#server 0.centos.pool.ntp.org iburst
+	#server 1.centos.pool.ntp.org iburst
+	#server 2.centos.pool.ntp.org iburst
+	#server 3.centos.pool.ntp.org iburst
+	c）添加3（当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步）
+	server 127.127.1.0
+	fudge 127.127.1.0 stratum 10
+	```
         * 修改/etc/sysconfig/ntpd 文件
-		```shell
-		[root@hadoop102 桌面]# vim /etc/sysconfig/ntpd
-		增加内容如下（让硬件时间与系统时间一起同步）
-		SYNC_HWCLOCK=yes
-		```
+	```shell
+	[root@hadoop102 桌面]# vim /etc/sysconfig/ntpd
+	增加内容如下（让硬件时间与系统时间一起同步）
+	SYNC_HWCLOCK=yes
+	```
         * 重新启动ntpd服务
-		```shell
-		[root@hadoop100 桌面]# service ntpd status
-		ntpd 已停
-		[root@hadoop100 桌面]# service ntpd start
-		正在启动 ntpd：                       [确定]
-		```
+	```shell
+	[root@hadoop100 桌面]# service ntpd status
+	ntpd 已停
+	[root@hadoop100 桌面]# service ntpd start
+	正在启动 ntpd：                       [确定]
+	```
         * 设置ntpd服务开机启动
-		```shell
-		[root@hadoop100 桌面]# chkconfig ntpd on
-		```
-		
+	```shell
+	[root@hadoop100 桌面]# chkconfig ntpd on
+	```
+	
 
-2. 其他机器配置（必须root用户）
+   2. 其他机器配置（必须root用户）
 	```shell
 	（1）在其他机器配置10分钟与时间服务器同步一次
-		[root@hadoop101 桌面]# crontab -e
-		编写定时任务如下：
-		*/10 * * * * /usr/sbin/ntpdate hadoop102
+	[root@hadoop101 桌面]# crontab -e
+	编写定时任务如下：
+	*/10 * * * * /usr/sbin/ntpdate hadoop102
 	（2）修改任意机器时间
-		[root@hadoop101 桌面]# date -s "2017-9-11 11:11:11"
+	[root@hadoop101 桌面]# date -s "2017-9-11 11:11:11"
 	（3）十分钟后查看机器是否与时间服务器同步
-		[root@hadoop101 桌面]# date
+	[root@hadoop101 桌面]# date
 	说明：测试的时候可以将10分钟调整为1分钟，节省时间。
 	```
 
