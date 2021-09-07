@@ -428,7 +428,7 @@ $>hadoop fs -ls
 	//通过xcall 检验文件是否发送成功
 	$> xcall cat /etc/profile.d/env.sh
 	//使环境变量生效
-	$> xcall sourece /etc/profile
+	$> xcall source /etc/profile
 	```
 
 5. 集群的启动并验证

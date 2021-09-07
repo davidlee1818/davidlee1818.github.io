@@ -31,3 +31,5 @@ bigdata:
     children :
       - title: "大数据技术之hadoop(入门)"
         url: /bigdata-framework/hadoop01/
+      - title: "大数据技术之hadoop(HDFS)"
+        url: /bigdata-framework/hadoop02/
