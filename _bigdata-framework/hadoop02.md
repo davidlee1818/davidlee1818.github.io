@@ -483,7 +483,7 @@ dn1收到一个Packet就会传给dn2，dn2传给dn3；dn1每传一个packet会�
 
 ### 网络拓扑-节点距离计算
 在HDFS写数据的过程中，NameNode会选择距离待上传数据最近距离的DataNode接收数据。那么这个最近距离怎么计算呢？  
-节点距离：两个节点到达最近的共同祖先（经过交换机的次数）的跃点数。  
+节点距离：两个节点到达最近的共同祖先的跃点数（ 经过交换机的次数）。  
 例如，假设有数据中心d1机架r1中的节点n1。该节点可以表示为/d1/r1/n1。利用这种标记，这里给出四种距离描述，如下图所示。
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/net-topo01.png){: .align-right}
 <center>网络拓扑概念</center>  
@@ -622,6 +622,586 @@ manually while the namenode is in safe mode, using the hdfs dfsadmin -saveNamesp
 command.
 
 ### Fsimage和Edits解析
+* 概念  
+NameNode被格式化之后，将在/opt/module/hadoop-2.7.2/data/tmp/dfs/name/current目录中产生如下文件
+	fsimage_0000000000000000000  
+	fsimage_0000000000000000000.md5  
+	seen_txid  
+	VERSION  
+（1）Fsimage文件：HDFS文件系统元数据的一个永久性的检查点，其中包含HDFS文件系统的所有目录和文件inode的序列化信息。<br />
+（2）Edits文件：存放HDFS文件系统的所有更新操作的路径，文件系统客户端执行的所有写操作首先会被记录到Edits文件中。<br />
+（3）seen_txid文件保存的是一个数字，就是最后一个edits_的数字<br />
+（4）每次NameNode启动的时候都会将Fsimage文件读入内存，加载Edits里面的更新操作，保证内存中的元数据信息是最新的、同步的，可以看成NameNode启动的时候就将Fsimage和Edits文件进行了合并。
+* oiv查看Fsimage文件  
+（1）查看oiv和oev命令
+	```shell
+	$> hdfs oiv  //apply the offline fsimage viewer to an fsimage
+	$> hdfs oev  //apply the offline edits viewer to an edits file
+	```
+（2）基本语法
+	```shell
+	hdfs oiv -p 文件类型 -i镜像文件 -o 转换后文件输出路径
+	```
+（3）案例实操
+	```shell
+	$> pwd
+	/opt/module/hadoop-2.7.2/data/tmp/dfs/name/current
+	$> hdfs oiv -p XML -i fsimage_0000000000000000025 -o /opt/module/hadoop-2.7.2/fsimage.xml
+	$> cat /opt/module/hadoop-2.7.2/fsimage.xml
+	将显示的xml文件内容拷贝到Eclipse中创建的xml文件中，并格式化。部分显示结果如下。
+	```
+	```xml
+	<inode>
+		<id>16386</id>
+		<type>DIRECTORY</type>
+		<name>user</name>
+		<mtime>1512722284477</mtime>
+		<permission>atguigu:supergroup:rwxr-xr-x</permission>
+		<nsquota>-1</nsquota>
+		<dsquota>-1</dsquota>
+	</inode>
+	<inode>
+		<id>16387</id>
+		<type>DIRECTORY</type>
+		<name>atguigu</name>
+		<mtime>1512790549080</mtime>
+		<permission>atguigu:supergroup:rwxr-xr-x</permission>
+		<nsquota>-1</nsquota>
+		<dsquota>-1</dsquota>
+	</inode>
+	<inode>
+		<id>16389</id>
+		<type>FILE</type>
+		<name>wc.input</name>
+		<replication>3</replication>
+		<mtime>1512722322219</mtime>
+		<atime>1512722321610</atime>
+		<perferredBlockSize>134217728</perferredBlockSize>
+		<permission>atguigu:supergroup:rw-r--r--</permission>
+		<blocks>
+			<block>
+				<id>1073741825</id>
+				<genstamp>1001</genstamp>
+				<numBytes>59</numBytes>
+			</block>
+		</blocks>
+	</inode >
+	```
+思考：可以看出，Fsimage中没有记录块所对应DataNode，为什么？
+在集群启动后，要求DataNode上报数据块信息，并间隔一段时间后再次上报。
+* oev查看Edits文件
+（1）基本语法
+	```shell
+	hdfs oev -p 文件类型 -i编辑日志 -o 转换后文件输出路径
+	```
+（2）案例实操
+	```shell
+	$> hdfs oev -p XML -i edits_0000000000000000012-0000000000000000013 -o /opt/module/hadoop-2.7.2/edits.xml
+	$> cat /opt/module/hadoop-2.7.2/edits.xml
+	将显示的xml文件内容拷贝到Eclipse中创建的xml文件中，并格式化。显示结果如下。
+	```
+	```xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<EDITS>
+		<EDITS_VERSION>-63</EDITS_VERSION>
+		<RECORD>
+			<OPCODE>OP_START_LOG_SEGMENT</OPCODE>
+			<DATA>
+				<TXID>129</TXID>
+			</DATA>
+		</RECORD>
+		<RECORD>
+			<OPCODE>OP_ADD</OPCODE>
+			<DATA>
+				<TXID>130</TXID>
+				<LENGTH>0</LENGTH>
+				<INODEID>16407</INODEID>
+				<PATH>/hello7.txt</PATH>
+				<REPLICATION>2</REPLICATION>
+				<MTIME>1512943607866</MTIME>
+				<ATIME>1512943607866</ATIME>
+				<BLOCKSIZE>134217728</BLOCKSIZE>
+				<CLIENT_NAME>DFSClient_NONMAPREDUCE_-1544295051_1</CLIENT_NAME>
+				<CLIENT_MACHINE>192.168.1.5</CLIENT_MACHINE>
+				<OVERWRITE>true</OVERWRITE>
+				<PERMISSION_STATUS>
+					<USERNAME>atguigu</USERNAME>
+					<GROUPNAME>supergroup</GROUPNAME>
+					<MODE>420</MODE>
+				</PERMISSION_STATUS>
+				<RPC_CLIENTID>908eafd4-9aec-4288-96f1-e8011d181561</RPC_CLIENTID>
+				<RPC_CALLID>0</RPC_CALLID>
+			</DATA>
+		</RECORD>
+		<RECORD>
+			<OPCODE>OP_ALLOCATE_BLOCK_ID</OPCODE>
+			<DATA>
+				<TXID>131</TXID>
+				<BLOCK_ID>1073741839</BLOCK_ID>
+			</DATA>
+		</RECORD>
+		<RECORD>
+			<OPCODE>OP_SET_GENSTAMP_V2</OPCODE>
+			<DATA>
+				<TXID>132</TXID>
+				<GENSTAMPV2>1016</GENSTAMPV2>
+			</DATA>
+		</RECORD>
+		<RECORD>
+			<OPCODE>OP_ADD_BLOCK</OPCODE>
+			<DATA>
+				<TXID>133</TXID>
+				<PATH>/hello7.txt</PATH>
+				<BLOCK>
+					<BLOCK_ID>1073741839</BLOCK_ID>
+					<NUM_BYTES>0</NUM_BYTES>
+					<GENSTAMP>1016</GENSTAMP>
+				</BLOCK>
+				<RPC_CLIENTID></RPC_CLIENTID>
+				<RPC_CALLID>-2</RPC_CALLID>
+			</DATA>
+		</RECORD>
+		<RECORD>
+			<OPCODE>OP_CLOSE</OPCODE>
+			<DATA>
+				<TXID>134</TXID>
+				<LENGTH>0</LENGTH>
+				<INODEID>0</INODEID>
+				<PATH>/hello7.txt</PATH>
+				<REPLICATION>2</REPLICATION>
+				<MTIME>1512943608761</MTIME>
+				<ATIME>1512943607866</ATIME>
+				<BLOCKSIZE>134217728</BLOCKSIZE>
+				<CLIENT_NAME></CLIENT_NAME>
+				<CLIENT_MACHINE></CLIENT_MACHINE>
+				<OVERWRITE>false</OVERWRITE>
+				<BLOCK>
+					<BLOCK_ID>1073741839</BLOCK_ID>
+					<NUM_BYTES>25</NUM_BYTES>
+					<GENSTAMP>1016</GENSTAMP>
+				</BLOCK>
+				<PERMISSION_STATUS>
+					<USERNAME>atguigu</USERNAME>
+					<GROUPNAME>supergroup</GROUPNAME>
+					<MODE>420</MODE>
+				</PERMISSION_STATUS>
+			</DATA>
+		</RECORD>
+	</EDITS >
+	```
+思考：NameNode如何确定下次开机启动的时候合并哪些Edits？
+自己做一次merge fsimage and edit log
 
+### CheckPoint时间设置
+```xml
+<!--hdfs-default.xml-->
+<!--通常情况下，SecondaryNameNode每隔一小时执行一次。-->
+<property>
+  <name>dfs.namenode.checkpoint.period</name>
+  <value>3600</value>
+</property>
+<!--一分钟检查一次操作次数-->
+<!--当操作次数达到1百万时，SecondaryNameNode执行一次。-->
+<property>
+  <name>dfs.namenode.checkpoint.txns</name>
+  <value>1000000</value>
+<description>操作动作次数</description>
+</property>
+
+<property>
+  <name>dfs.namenode.checkpoint.check.period</name>
+  <value>60</value>
+<description> 1分钟检查一次操作次数</description>
+</property >
+```
+### NameNode故障处理
+NameNode故障后，可以采用如下两种方法恢复数据。
+* 方法一：将SecondaryNameNode中数据拷贝到NameNode存储数据的目录；
+```shell
+1. kill -9 NameNode进程
+2. 删除NameNode存储的数据（/opt/module/hadoop-2.7.2/data/tmp/dfs/name）
+$> rm -rf /opt/module/hadoop-2.7.2/data/tmp/dfs/name/*
+3. 拷贝SecondaryNameNode中数据到原NameNode存储数据目录
+$> scp -r atguigu@hadoop104:/opt/module/hadoop-2.7.2/data/tmp/dfs/namesecondary/* ./name/
+4. 重新启动NameNode
+$> sbin/hadoop-daemon.sh start namenode
+```
+
+* 方法二：使用-importCheckpoint选项启动NameNode守护进程，从而将SecondaryNameNode中数据拷贝到NameNode目录中。
+	
+	```xml
+	1. 修改hdfs-site.xml中的
+	<property>
+	  <name>dfs.namenode.checkpoint.period</name>
+	  <value>120</value>
+	</property>
+	<property>
+	  <name>dfs.namenode.name.dir</name>
+	  <value>/opt/module/hadoop-2.7.2/data/tmp/dfs/name</value>
+	</property>
+	```
+
+	```shell
+	2. kill -9 NameNode进程
+	3. 删除NameNode存储的数据（/opt/module/hadoop-2.7.2/data/tmp/dfs/name）
+	$> rm -rf /opt/module/hadoop-2.7.2/data/tmp/dfs/name/*
+	4. 如果SecondaryNameNode不和NameNode在一个主机节点上，需要将SecondaryNameNode存储数据的目录拷贝到NameNode存储数据的平级目录，并删除in_use.lock文件
+	$> scp -r atguigu@hadoop104:/opt/module/hadoop-2.7.2/data/tmp/dfs/namesecondary ./
+	$> rm -rf in_use.lock
+	$> pwd
+	/opt/module/hadoop-2.7.2/data/tmp/dfs
+	$> ls
+	data  name  namesecondary
+	5. 导入检查点数据（等待一会ctrl+c结束掉）
+	$ bin/hdfs namenode -importCheckpoint
+	6. 启动NameNode
+	$> sbin/hadoop-daemon.sh start namenode
+	```
+
+### 集群安全模式
+* 概述
+1. NameNode启动  
+&emsp;&emsp;NameNode启动时，首先将镜像文件（Fsimage）载入内存，并执行编辑日志（Edits）中的各项操作。一旦在内存中成功建立文件系统元数据的映像，则创建一个新的Fsimage文件和一个空的编辑日志。此时，NameNode开始监听DataNode请求。这个过程期间，NameNode一直运行在安全模式，即NameNode的文件系统对于客户端来说是只读的。
+2. DataNode启动  
+&emsp;&emsp;系统中的数据块的位置并不是由NameNode维护的，而是以块列表的形式存储在DataNode中。在系统的正常操作期间，NameNode会在内存中保留所有块位置的映射信息。在安全模式下，各个DataNode会向NameNode发送最新的块列表信息，NameNode了解到足够多的块位置信息之后，即可高效运行文件系统。
+3. 安全模式退出判断  
+&emsp;&emsp;如果满足“最小副本条件”，NameNode会在30秒钟之后就退出安全模式。所谓的最小副本条件指的是在整个文件系统中99.9%的块满足最小副本级别（默认值：dfs.replication.min=1）。在启动一个刚刚格式化的HDFS集群时，因为系统中还没有任何块，所以NameNode不会进入安全模式。
+
+* 基本语法
+```shell
+//集群处于安全模式，不能执行重要操作（写操作）。
+//集群启动完成后，自动退出安全模式。
+$> bin/hdfs dfsadmin -safemode get    //查看安全模式状态
+$> bin/hdfs dfsadmin -safemode enter  //进入安全模式状态
+$> bin/hdfs dfsadmin -safemode leave  //离开安全模式状态
+$> bin/hdfs dfsadmin -safemode wait   //等待安全模式状态
+```
+### NameNode多目录配置
+NameNode的本地目录可以配置成多个，且每个目录存放内容相同，增加了可靠性
+具体配置如下
+* 在hdfs-site.xml文件中增加如下内容
+	```xml
+	<property>
+		<name>dfs.namenode.name.dir</name>
+		<value>file:///${hadoop.tmp.dir}/dfs/name1,file:///${hadoop.tmp.dir}/dfs/name2</value>
+	</property>
+	```
+* 停止集群，删除data和logs中所有数据。
+	```shell
+	[atguigu@hadoop100 hadoop-2.7.2]$> rm -rf data/ logs/
+	[atguigu@hadoop101 hadoop-2.7.2]$> rm -rf data/ logs/
+	[atguigu@hadoop102 hadoop-2.7.2]$> rm -rf data/ logs/
+	```
+* 格式化集群并启动。
+	```shell
+	[atguigu@hadoop100 hadoop-2.7.2]$> bin/hdfs namenode –format
+	[atguigu@hadoop100 hadoop-2.7.2]$> sbin/start-dfs.sh
+	```
+* 查看结果
+	```shell
+	[atguigu@hadoop100 dfs]$> ll
+	总用量 12
+	drwx------. 3 atguigu atguigu 4096 12月 11 08:03 data
+	drwxrwxr-x. 3 atguigu atguigu 4096 12月 11 08:03 name1
+	drwxrwxr-x. 3 atguigu atguigu 4096 12月 11 08:03 name2
+	```
+
+**补充说明** DataNode也可以配置多目录，但是和NameNode不同的是并不是备份，而是分目录存放而已。 
+{: .notice--warning}
+
+## DataNode
+### DataNode工作机制
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/datanode01.png){: .align-right}
+<center>DataNode工作机制</center>
+1. 一个数据块在DataNode上以文件形式存储在磁盘上，包括两个文件，一个是数据本身，一个是元数据包括数据块的长度，块数据的校验和，以及时间戳。
+2. DataNode启动后向NameNode注册，通过后，周期性（1小时）的向NameNode上报所有的块信息。
+3. 心跳是每3秒一次，心跳返回结果带有NameNode给该DataNode的命令如复制块数据到另一台机器，或删除某个数据块。如果超过10分钟没有收到某个DataNode的心跳，则认为该节点不可用。
+4. 集群运行中可以安全加入和退出一些机器。
+
+### 数据完整性
+思考：如果电脑磁盘里面存储的数据是控制高铁信号灯的红灯信号（1）和绿灯信号（0），但是存储该数据的磁盘坏了，一直显示是绿灯，是否很危险？同理DataNode节点上的数据损坏了，却没有发现，是否也很危险，那么如何解决呢？  
+如下是DataNode节点保证数据完整性的方法：
+1. 当DataNode读取Block的时候，它会计算CheckSum（crc32 cyclic redundancy check）。
+io.bytes.per.checkSum=512配置，不能大于io.file.buffer.size(4096)。
+hdfs写入文件场景中，pipline中最后一个datanode负责校验block。
+Datanode存储block数据以及block的校验和，并且保持着一份数据校验情况的持久化日志，Client读取数据成功时会通知datanode更新校验日志。每个datanode都运行一个叫做DataBlockScanner的后台进程，周期检验所有block，用来防止磁盘的坏道bit rot。
+2. 如果计算后的CheckSum，与Block创建时值不一样，说明Block已经损坏。
+3. Client读取其他DataNode上的Block。
+4. DataNode在其文件创建后周期验证CheckSum，如下图所示。
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/data-integrity.png){: .align-right}
+<center>校验和</center>
+
+### 掉线时限参数设置
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/datanode02.png){: .align-right}
+需要注意的是hdfs-site.xml 配置文件中的heartbeat.recheck.interval的单位为毫秒，dfs.heartbeat.interval的单位为秒。
+```xml
+<property>
+    <name>dfs.namenode.heartbeat.recheck-interval</name>
+    <value>300000</value>
+</property>
+
+<property>
+    <name>dfs.heartbeat.interval</name>
+    <value>3</value>
+</property>
+```
+
+### 服役新数据节点
+* 需求  
+随着公司业务的增长，数据量越来越大，原有的数据节点的容量已经不能满足存储数据的需求，需要在原有集群基础上动态添加新的数据节点。
+* 环境准备  
+（1）在hadoop103主机上再克隆一台hadoop105主机  
+（2）修改IP地址和主机名称  
+（3）删除原来HDFS文件系统留存的文件（/opt/module/hadoop-2.7.2/data和log）  
+（4）source一下配置文件  $> source /etc/profile
+* 服役新节点具体步骤
+
+	```shell
+	1. 直接启动DataNode，即可关联到集群
+	[atguigu@hadoop103 hadoop-2.7.2]$> sbin/hadoop-daemon.sh start datanode
+	[atguigu@hadoop103 hadoop-2.7.2]$> sbin/yarn-daemon.sh start nodemanager
+	 
+	2. 在hadoop105上上传文件
+	[atguigu@hadoop103 hadoop-2.7.2]$> hadoop fs -put /opt/module/hadoop-2.7.2/LICENSE.txt /
+	3. 如果数据不均衡，可以用命令实现集群的再平衡
+	[atguigu@hadoop100 sbin]$> ./start-balancer.sh
+	starting balancer, logging to /opt/module/hadoop-2.7.2/logs/hadoop-atguigu-balancer-hadoop100.out
+	Time Stamp Iteration#  Bytes Already Moved  Bytes Left To Move  Bytes Being Moved
+	```
+* 官方说明
+   * Add the network addresses of the new nodes to the include file.
+
+		```xml
+		<!--hdfs-site.xml-->
+		<property>
+			<!-- 指定一个文件的完整路径,没有指定，说明所有节点都可连接 -->
+			<name>dfs.hosts</name>
+			<value>/soft/hadoop/etc/hadoop/datanodes.host</value>
+		</property>
+		<!--yarn-site.xml-->
+		<property>
+			<name>yarn.resourcemanager.nodes.include-path</name>
+			<value>/soft/hadoop/etc/hadoop/nms.host</value>
+		</property>
+		```
+   * Update the namenode with the new set of permitted datanodes using this command:% hdfs dfsadmin -refreshNodes
+   * Update the resource manager with the new set of permitted node managers using:% yarn rmadmin -refreshNodes
+   * Update the slaves file with the new nodes, so that they are included in future operations performed by the Hadoop control scripts.
+   * Start the new datanodes and node managers.
+   * Check that the new datanodes and node managers appear in the web UI.
+
+### 退役旧数据节点
+#### 添加白名单
+添加到白名单的主机节点，都允许访问NameNode，不在白名单的主机节点，都会被退出。  
+配置白名单的具体步骤如下：
+1. 在NameNode的/opt/module/hadoop-2.7.2/etc/hadoop目录下创建dfs.hosts文件
+	```shell
+	[atguigu@hadoop100 hadoop]$ pwd
+	/opt/module/hadoop-2.7.2/etc/hadoop
+	[atguigu@hadoop100 hadoop]$ touch dfs.hosts
+	[atguigu@hadoop100 hadoop]$ vi dfs.hosts
+	添加如下主机名称（不添加hadoop103）
+	hadoop100
+	hadoop101
+	hadoop102
+	```
+2. 在NameNode的hdfs-site.xml配置文件中增加dfs.hosts属性
+	```xml
+	<property>
+	<name>dfs.hosts</name>
+	<value>/opt/module/hadoop-2.7.2/etc/hadoop/dfs.hosts</value>
+	</property>
+	```
+3. 配置文件分发
+	```shell	
+	[atguigu@hadoop100 hadoop]$ xsync hdfs-site.xml
+	```
+4. 刷新NameNode
+	```shell	
+	[atguigu@hadoop100 hadoop-2.7.2]$ hdfs dfsadmin -refreshNodes
+	Refresh nodes successful
+	```
+5. 更新ResourceManager节点
+	```shell
+	[atguigu@hadoop100 hadoop-2.7.2]$ yarn rmadmin -refreshNodes
+	17/06/24 14:17:11 INFO client.RMProxy: Connecting to ResourceManager at hadoop101/192.168.1.101:8033
+	```
+6. 在web浏览器上查看  
+	如果数据不均衡，可以用命令实现集群的再平衡
+	```shell
+	[atguigu@hadoop100 sbin]$ ./start-balancer.sh
+	starting balancer, logging to /opt/module/hadoop-2.7.2/logs/hadoop-atguigu-balancer-hadoop100.out
+	Time Stamp Iteration#  Bytes Already Moved  Bytes Left To Move  Bytes Being Moved
+	```
+
+#### 黑名单退役
+在黑名单上面的主机都会被强制退出。
+1. 在NameNode的/opt/module/hadoop-2.7.2/etc/hadoop目录下创建dfs.hosts.exclude文件
+	```shell
+	[atguigu@hadoop100 hadoop]$ pwd
+	/opt/module/hadoop-2.7.2/etc/hadoop
+	[atguigu@hadoop100 hadoop]$ touch dfs.hosts.exclude
+	[atguigu@hadoop100 hadoop]$ vi dfs.hosts.exclude
+	添加如下主机名称（要退役的节点）
+	hadoop103
+	```
+2. 在NameNode的hdfs-site.xml配置文件中增加dfs.hosts.exclude属性
+	```xml
+	<property>
+	<name>dfs.hosts.exclude</name>
+	      <value>/opt/module/hadoop-2.7.2/etc/hadoop/dfs.hosts.exclude</value>
+	</property>
+	```
+3. 刷新NameNode、刷新ResourceManager
+	```shell
+	[atguigu@hadoop100 hadoop-2.7.2]$ hdfs dfsadmin -refreshNodes
+	Refresh nodes successful
+
+	[atguigu@hadoop100 hadoop-2.7.2]$ yarn rmadmin -refreshNodes
+	17/06/24 14:55:56 INFO client.RMProxy: Connecting to ResourceManager at hadoop101/192.168.1.101:8033
+	```
+4. 检查Web浏览器，退役节点的状态为decommission in progress（退役中），说明数据节点正在复制块到其他节点。
+5. 等待退役节点状态为decommissioned（所有块已经复制完成），停止该节点及节点资源管理器。注意：如果副本数是3，服役的节点小于等于3，是不能退役成功的，需要修改副本数后才能退役。
+	```shell
+	[atguigu@hadoop103 hadoop-2.7.2]$ sbin/hadoop-daemon.sh stop datanode
+	stopping datanode
+	[atguigu@hadoop103 hadoop-2.7.2]$ sbin/yarn-daemon.sh stop nodemanager
+	stopping nodemanager
+	```
+6. 如果数据不均衡，可以用命令实现集群的再平衡
+	```shell
+	[atguigu@hadoop100 hadoop-2.7.2]$ sbin/start-balancer.sh 
+	starting balancer, logging to /opt/module/hadoop-2.7.2/logs/hadoop-atguigu-balancer-hadoop100.out
+	Time Stamp Iteration#  Bytes Already Moved  Bytes Left To Move  Bytes Being Moved
+	注意：不允许白名单和黑名单中同时出现同一个主机名称。（同时出现代表退役！）
+	```
+
+#### 补充说明
+1. 添加退役节点至exclude文件。注意：不要更新include文件
+2. 刷新NN,RM。查看webUI 退役节点状态为：decomssion in progress，此时正在复制block到其他节点
+3. decommsioned 退役完成，手动停掉节点datanode和nodemanager进程
+4. 从dfs.hosts文件中删除退役节点，刷新NN,RM。
+5. 从slaves文件中删除退役节点。
+
+### Datanode多目录配置
+1. DataNode也可以配置成多个目录，每个目录存储的数据不一样。即：数据不是副本
+2. 具体配置如下
+	```xml
+	<!--hdfs-site.xml-->
+	<property>
+		<name>dfs.datanode.data.dir</name>
+		<value>file:///${hadoop.tmp.dir}/dfs/data1,file:///${hadoop.tmp.dir}/dfs/data2</value>
+	</property>
+	```
+
+## HDFS 2.X新特性
+### 集群间数据拷贝
+1. scp实现两个远程主机之间的文件复制
+	```shell
+	scp -r hello.txt root@hadoop103:/user/atguigu/hello.txt		// 推 push
+	scp -r root@hadoop103:/user/atguigu/hello.txt  hello.txt	// 拉 pull
+	//是通过本地主机中转实现两个远程主机的文件复制；如果在两个远程主机之间ssh没有配置的情况下可以使用该方式。
+	scp -r root@hadoop103:/user/atguigu/hello.txt root@hadoop104:/user/atguigu   
+	```
+2. 采用distcp命令实现两个Hadoop集群之间的递归数据复制
+	```shell
+	[atguigu@hadoop102 hadoop-2.7.2]$  bin/hadoop distcp
+	hdfs://haoop102:9000/user/atguigu/hello.txt hdfs://hadoop103:9000/user/atguigu/hello.txt
+
+	```
+### 小文件存档
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/hadoop-arch.png){: .align-right}
+案例实操
+	```shell
+	1. 需要启动YARN进程
+	$> start-yarn.sh
+	2. 归档文件
+	// 把/user/atguigu/input目录里面的所有文件归档成一个叫input.har的归档文件，
+	// 并把归档后文件存储到/user/atguigu/output路径下。
+	$> bin/hadoop archive -archiveName input.har –p  /user/atguigu/input   /user/atguigu/output
+	3. 查看归档
+	$> hadoop fs -lsr /user/atguigu/output/input.har
+	$> hadoop fs -lsr har:///user/atguigu/output/input.har
+	4. 解归档文件
+	$> hadoop fs -cp har:/// user/atguigu/output/input.har/*    /user/atguigu
+	```
+
+### 回收站
+开启回收站功能，可以将删除的文件在不超时的情况下，恢复原数据，起到防止误删除、备份等作用。
+1. 回收站参数设置及工作机制
+	![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/hdfs-recycle.png){: .align-right}
+	<center>回收站</center>
+2. 启用回收站
+修改core-site.xml，配置垃圾回收时间为1分钟。
+	```xml
+	<property>
+	   <name>fs.trash.interval</name>
+	<value>1</value>
+	</property>
+	```
+3. 查看回收站
+回收站在集群中的路径：/user/atguigu/.Trash/….
+4. 修改访问垃圾回收站用户名称
+进入垃圾回收站用户名称，默认是dr.who，修改为atguigu用户
+	```xml
+	<!--core-site.xml-->
+	<property>
+	  <name>hadoop.http.staticuser.user</name>
+	  <value>atguigu</value>
+	</property>
+	```
+5. 通过程序删除的文件不会经过回收站，需要调用moveToTrash()才进入回收站
+	```java
+	Trash trash = New Trash(conf);
+	trash.moveToTrash(path);
+	```
+6. 恢复回收站数据
+	```shell
+	$> hadoop fs -mv 
+	/user/atguigu/.Trash/Current/user/atguigu/input    /user/atguigu/input
+	```
+7. 清空回收站
+	```shell
+	$> hadoop fs -expunge
+	```
+
+### 快照管理
+1. 操作命令
+快照相当于对目录做一个备份。并不会立即复制所有文件，而是记录文件变化。
+	```shell
+	$> hdfs dfsadmin -allowSnapshot 路径   //开启指定目录的快照功能
+	$> hdfs dfsadmin -disallowSnapshot 路径 //禁用指定目录的快照功能，默认是禁用
+	$> hdfs dfs -createSnapshot 路径        //功能描述：对目录创建快照
+	$> hdfs dfs -createSnapshot 路径 名称   //功能描述：指定名称创建快照
+	$> hdfs dfs -renameSnapshot 路径 旧名称 新名称  //功能描述：重命名快照
+	$> hdfs lsSnapshottableDir         	 //列出当前用户所有可快照目录
+	$> hdfs snapshotDiff 路径1 路径2 	 //比较两个快照目录的不同之处
+	$> hdfs dfs -deleteSnapshot <path> <snapshotName>  //功能描述：删除快照
+	```
+2. 案例实操
+
+	```shell
+	1. 开启/禁用指定目录的快照功能
+	$> hdfs dfsadmin -allowSnapshot /user/atguigu/input
+	$> hdfs dfsadmin -disallowSnapshot /user/atguigu/input
+	2. 对目录创建快照
+	$> hdfs dfs -createSnapshot /user/atguigu/input
+	通过web访问hdfs://hadoop100:50070/user/atguigu/input/.snapshot/s…..  // 快照和源文件使用相同数据
+	$> hdfs dfs -lsr /user/atguigu/input/.snapshot/
+	3. 指定名称创建快照
+	$ hdfs dfs -createSnapshot /user/atguigu/input  miao170508
+	4.重命名快照
+	$ hdfs dfs -renameSnapshot /user/atguigu/input/  miao170508 atguigu170508
+	5. 列出当前用户所有可快照目录
+	$ hdfs lsSnapshottableDir
+	6. 比较两个快照目录的不同之处
+	$ hdfs snapshotDiff
+	/user/atguigu/input/  .  .snapshot/atguigu170508	
+	7. 恢复快照
+	$ hdfs dfs -cp
+	/user/atguigu/input/.snapshot/s20170708-134303.027  /user
+	```
+
+## HDFS HA高可用
 
 
