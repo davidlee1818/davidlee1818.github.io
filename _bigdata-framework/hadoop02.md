@@ -1169,14 +1169,14 @@ Datanode存储block数据以及block的校验和，并且保持着一份数据�
 1. 操作命令
 快照相当于对目录做一个备份。并不会立即复制所有文件，而是记录文件变化。
 	```shell
-	$> hdfs dfsadmin -allowSnapshot 路径   //开启指定目录的快照功能
+	$> hdfs dfsadmin -allowSnapshot 路径    //开启指定目录的快照功能
 	$> hdfs dfsadmin -disallowSnapshot 路径 //禁用指定目录的快照功能，默认是禁用
-	$> hdfs dfs -createSnapshot 路径        //功能描述：对目录创建快照
-	$> hdfs dfs -createSnapshot 路径 名称   //功能描述：指定名称创建快照
-	$> hdfs dfs -renameSnapshot 路径 旧名称 新名称  //功能描述：重命名快照
-	$> hdfs lsSnapshottableDir         	 //列出当前用户所有可快照目录
-	$> hdfs snapshotDiff 路径1 路径2 	 //比较两个快照目录的不同之处
-	$> hdfs dfs -deleteSnapshot <path> <snapshotName>  //功能描述：删除快照
+	$> hdfs dfs -createSnapshot 路径        //对目录创建快照
+	$> hdfs dfs -createSnapshot 路径 名称   //指定名称创建快照
+	$> hdfs dfs -renameSnapshot 路径 旧名称 新名称  //重命名快照
+	$> hdfs lsSnapshottableDir  //列出当前用户所有可快照目录
+	$> hdfs snapshotDiff <path> <fromSnapshot> <toSnapshot> //比较两个快照目录的不同之处
+	$> hdfs dfs -deleteSnapshot <path> <snapshotName>  //删除快照
 	```
 2. 案例实操
 
@@ -1194,7 +1194,7 @@ Datanode存储block数据以及block的校验和，并且保持着一份数据�
 	$ hdfs dfs -renameSnapshot /user/atguigu/input/  miao170508 atguigu170508
 	5. 列出当前用户所有可快照目录
 	$ hdfs lsSnapshottableDir
-	6. 比较两个快照目录的不同之处
+	6. 比较两个快照目录的不同之处（.表示当前目录的状态）
 	$ hdfs snapshotDiff
 	/user/atguigu/input/  .  .snapshot/atguigu170508	
 	7. 恢复快照
