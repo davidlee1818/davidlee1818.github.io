@@ -1337,7 +1337,7 @@ export JAVA_HOME=/opt/module/jdk1.8.0_144
 		<!-- 把两个NameNode）的地址组装成一个集群mycluster -->
 		<property>
 			<name>fs.defaultFS</name>
-		<value>hdfs://mycluster</value>
+			<value>hdfs://mycluster</value>
 		</property>
 
 		<!-- 指定hadoop运行时产生文件的存储目录 -->
@@ -1389,7 +1389,7 @@ export JAVA_HOME=/opt/module/jdk1.8.0_144
 		<!-- 指定NameNode元数据在JournalNode上的存放位置 -->
 		<property>
 			<name>dfs.namenode.shared.edits.dir</name>
-		<value>qjournal://hadoop100:8485;hadoop101:8485;hadoop102:8485/mycluster</value>
+			<value>qjournal://hadoop100:8485;hadoop101:8485;hadoop102:8485/mycluster</value>
 		</property>
 
 		<!-- 配置隔离机制，即同一时刻只能有一台服务器对外响应 -->
@@ -1419,7 +1419,7 @@ export JAVA_HOME=/opt/module/jdk1.8.0_144
 		<!-- 访问代理类：client，mycluster，active配置失败自动切换实现方式-->
 		<property>
 	  		<name>dfs.client.failover.proxy.provider.mycluster</name>
-		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+			<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
 		</property>
 	</configuration>
 	```
@@ -1484,3 +1484,136 @@ $> bin/hdfs haadmin -getServiceState nn1
 	```
 
 ### YARN-HA配置
+#### YARN-HA工作机制
+[官方说明](http://hadoop.apache.org/docs/r2.7.2/hadoop-yarn/hadoop-yarn-site/ResourceManagerHA.html)
+
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/yarn-ha.png){: .align-center}
+
+#### 配置YARN-HA集群
+
+* 集群配置
+
+	|                  | hadoop100 |  hadoop101 | hadoop102 |                                                             |
+	| --------         | --------- | ---------------------- |
+	| --------         |     NN    |     NN     |           |
+	| --------         |     DN    |     DN     |    DN     |
+	| --------         |     JN    |     JN     |    JN     |
+	| --------         |     ZK    |     ZK     |    ZK     |
+	| --------         |     RM    |     RM     |           |
+	| --------         |     NM    |     NM     |    NM     |
+
+* 具体配置
+
+	```xml
+	<!--  1. yarn-site.xml  -->
+	<configuration>
+
+		<property>
+			<name>yarn.nodemanager.aux-services</name>
+			<value>mapreduce_shuffle</value>
+		</property>
+
+		<!--启用resourcemanager ha-->
+		<property>
+			<name>yarn.resourcemanager.ha.enabled</name>
+			<value>true</value>
+		</property>
+
+		<!--声明两台resourcemanager的地址-->
+		<property>
+			<name>yarn.resourcemanager.cluster-id</name>
+			<value>cluster-yarn1</value>
+		</property>
+
+		<property>
+			<name>yarn.resourcemanager.ha.rm-ids</name>
+			<value>rm1,rm2</value>
+		</property>
+
+		<property>
+			<name>yarn.resourcemanager.hostname.rm1</name>
+			<value>hadoop100</value>
+		</property>
+
+		<property>
+			<name>yarn.resourcemanager.hostname.rm2</name>
+			<value>hadoop101</value>
+		</property>
+
+		<!--指定zookeeper集群的地址--> 
+		<property>
+			<name>yarn.resourcemanager.zk-address</name>
+			<value>hadoop100:2181,hadoop101:2181,hadoop102:2181</value>
+		</property>
+
+		<!--启用自动恢复--> 
+		<property>
+		<name>yarn.resourcemanager.recovery.enabled</name>
+		<value>true</value>
+		</property>
+
+		<!--指定resourcemanager的状态信息存储在zookeeper集群--> 
+		<property>
+			<name>yarn.resourcemanager.store.class</name>     
+			<value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+		</property>
+
+	</configuration>
+	<!-- 2. 同步更新其他节点的配置信息 -->
+	```
+
+* 启动HDFS
+
+	```shell
+	1. 在各个JournalNode节点上，输入以下命令启动journalnode服务：
+	$> sbin/hadoop-daemon.sh start journalnode
+	2. 在[nn1]上，对其进行格式化，并启动：
+	$> bin/hdfs namenode -format
+	$> sbin/hadoop-daemon.sh start namenode
+	3. 在[nn2]上，同步nn1的元数据信息：
+	$> bin/hdfs namenode -bootstrapStandby
+	4. 启动[nn2]：
+	$> sbin/hadoop-daemon.sh start namenode
+	5. 启动所有DataNode
+	$> sbin/hadoop-daemons.sh start datanode
+	6. 将[nn1]切换为Active
+	$> bin/hdfs haadmin -transitionToActive nn1
+	```
+
+* 启动YARN 
+
+	```shell
+	1. 在hadoop102中执行：
+	$> sbin/start-yarn.sh
+	2. 在hadoop103中执行：
+	$> sbin/yarn-daemon.sh start resourcemanager
+	3. 查看服务状态
+	$> bin/yarn rmadmin -getServiceState rm1
+	```
+
+### HDFS Federation架构设计
+1. NameNode架构的局限性  
+（1）Namespace（命名空间）的限制  
+由于NameNode在内存中存储所有的元数据（metadata），因此单个NameNode所能存储的对象（文件+块）数目受到NameNode所在JVM的heap size的限制。50G的heap能够存储20亿（200million）个对象，这20亿个对象支持4000个DataNode，12PB的存储（假设文件平均大小为40MB）。随着数据的飞速增长，存储的需求也随之增长。单个DataNode从4T增长到36T，集群的尺寸增长到8000个DataNode。存储的需求从12PB增长到大于100PB。  
+（2）隔离问题  
+由于HDFS仅有一个NameNode，无法隔离各个程序，因此HDFS上的一个实验程序就很有可能影响整个HDFS上运行的程序。  
+（3）性能的瓶颈  
+由于是单个NameNode的HDFS架构，因此整个HDFS文件系统的吞吐量受限于单个NameNode的吞吐量。
+
+2. HDFS Federation架构设计，如下图所示
+
+	能不能有多个NameNode
+
+	|  NameNode  |  NameNode  | NameNode |                                                             |
+	|   元数据   |   元数据   |   元数据  |
+	|     log    |  machine   |  电商数据/话单数据   |
+
+	![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/bigdata-framework/hadoop/hdfs-federation.png){: .align-center}
+	<center>HDFS Federation架构设计</center>
+
+3. HDFS Federation应用思考  
+不同应用可以使用不同NameNode进行数据管理  
+图片业务、爬虫业务、日志审计业务  
+Hadoop生态系统中，不同的框架使用不同的NameNode进行管理NameSpace。（隔离性）
+
+
