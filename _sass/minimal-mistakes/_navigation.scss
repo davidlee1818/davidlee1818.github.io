@@ -199,6 +199,11 @@
     }
   }
 
+  img {
+    -webkit-transition: none;
+    transition: none;
+  }
+   
   &__toggle {
     -ms-flex-item-align: center;
     align-self: center;
