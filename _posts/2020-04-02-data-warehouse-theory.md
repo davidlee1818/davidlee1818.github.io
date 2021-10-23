@@ -4,6 +4,7 @@ excerpt: "上次我们已经知道了什么是数据仓库以及数仓带来的�
 header:
   overlay_color: "#ffa64d"
 toc: true
+toc_sticky: true
 toc_label: "本页目录"
 toc_icon: "cog"
 categories: [artices]
