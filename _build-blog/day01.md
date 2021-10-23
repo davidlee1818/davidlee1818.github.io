@@ -36,6 +36,7 @@ $> sudo reboot	<br/>
 
 另外，有可能之前安装就一直黑屏，如果是vmware 建议用原生的模拟磁盘安装（选稍后自行安装），自动安装贼坑。
 卡在retrieving file 可以 skip 不然等一年！ <br />
+
 ### 更换gems国内源
 $> gem sources -l   <br/>
 $> gem sources -r   //加上上面的干掉官方源   <br/>
@@ -43,9 +44,10 @@ $> gem sources -a \'https://gems.ruby-china.com\'  //目前可用的国内源   
 另外gem在update 或者 bundle install的时候 也会使用默认源。   <br/>
 $> bundle config \'mirror.https://rubygems.org\' \'https://gems.ruby-china.com\'
 会在你 ~/.bundle 生成对应配置文件，而不需要去改Gemfile  <br/>
+
 ### 安装jekyll和theme的依赖
 这个坑奇坑无比！！  明明安装了openssl，他就是找不到你气不气 <br/>
-```
+``` shell
 $> sudo gem install eventmachine -v '1.2.7' --source 'https://gems.ruby-china.com' -- --with-cppflags=-I/usr/local/opt/openssl/include
 ```
 参数设置也是贼坑，看帮助完全没用！！ 注意 两个\'\-\-\'不能少 还有空格。
@@ -54,9 +56,17 @@ $> sudo gem install eventmachine -v '1.2.7' --source 'https://gems.ruby-china.co
 开启服务器: $>bundle exec jekyll serve    <br/>
 默认本机 127.0.0.0:4000  绑定的本机内网 宿主机进不去的。 <br/>
 tips：有些时候需要强制jekyll生产模式下运行，用来开启一些功能 比如：评论 等。
-```
+``` shell
 $> JEKYLL_ENV=production bundle exec jekyll build
 ```
 makedown还不熟估计版式贼丑。 <br/>
 模板换成大佬最新的 minimal-mistakes。
+
+
+### Ubuntu20.04 更新环境
+从Ubuntu18.04升级到Ubuntu20.04，ruby版本变成了2.7。使用bundle时提示找不到/usr/local/bin/ruby2.5。  
+解决办法：将/usr/local/bin下的 bundle bundler 删掉 重新安装 
+```shell
+$> sudo gem install bundle bundler
+```
 

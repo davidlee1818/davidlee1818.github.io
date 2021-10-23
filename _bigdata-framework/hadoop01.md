@@ -12,6 +12,7 @@ tags:
 sidebar:
   nav: "bigdata"
 toc: true
+toc_sticky: true
 toc_label: "本页目录"
 toc_icon: "cog"
 
