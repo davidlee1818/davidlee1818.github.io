@@ -1,8 +1,8 @@
 ---
-title: 搭建博客记录
+title: 学习笔记
 layout: collection
-permalink: /build-blog/
-collection: build-blog
+permalink: /learning-notes/
+collection: learning-notes
 entries_layout: grid
 classes: wide
 ---

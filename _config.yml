@@ -275,7 +275,7 @@ compress_html:
 
 # Collections note: pages or mds of collections don't hava a comment component
 collections:
-  build-blog:
+  learning-notes:
     output: true
     permalink: /:collection/:path/
   life-notes:
@@ -308,10 +308,10 @@ defaults:
       author_profile: true
 
 
-  # _build-blog
+  # _learning-notes
   - scope:
       path: ""
-      type: build-blog
+      type: learning-notes
     values:
       layout: single
       author_profile: false

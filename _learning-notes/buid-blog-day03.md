@@ -4,9 +4,9 @@ excerpt: "用[**algolia**](http://www.algolia.com)实现博客的搜索功能，
 很简单只要注册并配置好就行了！"
 header:
   overlay_color: "#333"
-  teaser: assets/images/build-blog/build-blog-03.jpg
+  teaser: assets/images/learning-notes/build-blog/build-blog-03.jpg
 sidebar:
-  nav: "buildblog"
+  nav: "learningnotes"
 toc: true
 toc_label: "本页目录"
 toc_icon: "cog"

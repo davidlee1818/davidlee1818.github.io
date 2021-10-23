@@ -20,10 +20,10 @@ feature_row:
     btn_label: "Learn more"
   - image_path: /assets/images/homepage/home-write.jpg
     image_caption: "[**Unsplash**](https://unsplash.com)"
-    alt: "博客搭建记录"
-    title: "博客搭建记录"
-    excerpt: "这是我搭建博客的详细介绍，你要是感兴趣的话可以看看，尝试自己学着去搭一个。"
-    url: "/build-blog/"
+    alt: "学习笔记"
+    title: "学习笔记"
+    excerpt: "总结一下已经学过的一些东西。"
+    url: "/learning-notes/"
     btn_class: "btn--primary"
     btn_label: "Learn more"
   - image_path: /assets/images/homepage/home-program.jpg
