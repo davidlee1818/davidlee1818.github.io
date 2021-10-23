@@ -2,10 +2,8 @@
 title: "Before you waste your time" 
 excerpt: "Life teaches us to make good use of time and time teaches us the value of life."
 header:
-  video:
-    id: BV18b411E7Kq
-    provider: bilibili
-    danmaku: 1
+  overlay_color: "#4da6ff"
+  teaser: assets/images/life-notes/before-you-waste-time-01.jpg
 sidebar:
   nav: "lifenotes"
 toc: true
@@ -16,13 +14,7 @@ toc_icon: "cog"
 ---
 <!-- <iframe class="iframe_video" src="//player.bilibili.com/player.html?aid=46747903&bvid=BV18b411E7Kq&cid=81883296&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
  -->
-<!--   
-overlay_color: "#4da6ff"
-teaser: assets/images/life-notes/before-you-waste-time-01.jpg -->
-
-<!-- {% include video id="BV1E7411e7hC" provider="bilibili" danmaku="1" %} -->
-
-
+{% include video id="BV18b411E7Kq" provider="bilibili" danmaku="1" %}
 ## What is time meaning?
 When asked: “What’s the biggest mistake we make in life?” The Buddha replied, “The biggest mistake is you think you have time..”
 
