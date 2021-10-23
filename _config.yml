@@ -29,7 +29,9 @@ teaser                   : # path of fallback teaser image, e.g. "/assets/images
 logo                     : "/assets/images/homepage/sitelogo.gif"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs              : true # true, false (default)
+date_format              : "%Y-%m-%d" # default format is `"%B %-d, %Y"`
 words_per_minute         : 120
+
 comments:
   provider               : "staticman_v2"   # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
