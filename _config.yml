@@ -328,6 +328,8 @@ defaults:
       author_profile: false
       share: true
       comments: true
+      show_date: true
+      read_time: true
 
   # _life-notes
   - scope:
@@ -338,6 +340,8 @@ defaults:
       author_profile: false
       share: true
       comments: true
+      show_date: true
+      read_time: true
 
   # _bigdata-framework
   - scope:
@@ -348,4 +352,6 @@ defaults:
       author_profile: false
       share: true
       comments: true
+      show_date: true
+      read_time: true
 
