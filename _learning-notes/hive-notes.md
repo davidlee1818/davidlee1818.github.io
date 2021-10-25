@@ -3,7 +3,7 @@ title: "Hive总结笔记"
 excerpt: "常用的一些函数以及数仓表格设计和查询优化。"
 header:
   overlay_color: "#169CDE"
-  teaser: assets/images/learning-notes/hive-notes-logo.jpg
+  teaser: assets/images/learning-notes/hive-notes/hive-notes-logo.jpg
 categories:
   - bigdata
 tags:
@@ -407,6 +407,186 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
     This takes at most two parameters. The first parameter is the column for which you want the last value, the second (optional) parameter must be a boolean which is false by default. If set to true it skips null values.
 
 
+# Hive表设计
+* 拉链表
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable01.png" alt="什么是拉链表">
+  </figure> 
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable02.png" alt="为什么要做拉链表">
+  </figure> 
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable03.png" alt="如何使用拉链表">
+  </figure> 
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable04.png" alt="拉链表形成过程">
+  </figure> 
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable05.png" alt="用户拉链表分区">
+  </figure>
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable06.png" alt="用户维度表">
+  </figure>
+  <figure class="align-center">
+    <img src="{{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/hive-notes/hive-notes-zippedtable07.png" alt="用户维度表每日装载思路">
+  </figure>
+
+  ```sql
+
+  -- 1.建表语句
+  DROP TABLE IF EXISTS dim_user_info;
+  CREATE EXTERNAL TABLE dim_user_info(
+      `id` STRING COMMENT '用户id',
+      `name` STRING COMMENT '用户姓名',
+      `start_date` STRING COMMENT '开始日期',
+      `end_date` STRING COMMENT '结束日期'
+  ) COMMENT '用户表'
+  PARTITIONED BY (`dt` STRING)
+  STORED AS ORC
+  LOCATION '/warehouse/gmall/dim/dim_user_info/'
+  TBLPROPERTIES ("orc.compress"="snappy");
+
+  -- 2.首日装载数据
+
+  insert overwrite table dim_user_info partition(dt='9999-99-99')
+  select
+      id,
+      md5(name),
+      '2020-06-14',
+      '9999-99-99'
+  from ods_user_info --ods层用户表
+  where dt='2020-06-14';
+
+  -- 3.每日装载数据
+
+  with
+  tmp as
+  (
+      select
+          old.id old_id,     
+          old.name old_name,      
+          old.start_date old_start_date,
+          old.end_date old_end_date,
+          new.id new_id,      
+          new.name new_name,
+          new.start_date new_start_date,
+          new.end_date new_end_date
+      from
+      (
+          select
+              id,
+              md5(name) name,
+              start_date,
+              end_date
+          from dim_user_info
+          where dt='9999-99-99'
+      )old
+      full outer join
+      (
+          select
+              id,
+              md5(name) name,
+              '2020-06-15' start_date,
+              '9999-99-99' end_date
+          from ods_user_info
+          where dt='2020-06-15'
+      )new
+      on old.id=new.id
+  )
+  insert overwrite table dim_user_info partition(dt)
+  select
+      nvl(new_id,old_id),
+      nvl(new_name,old_name),
+      nvl(new_start_date,old_start_date),
+      nvl(new_end_date,old_end_date),
+      nvl(new_end_date,old_end_date) dt
+  from tmp
+  union all
+  select
+      old_id,
+      old_name,
+      old_start_date,
+      cast(date_add('2020-06-15',-1) as string),
+      cast(date_add('2020-06-15',-1) as string) dt
+  from tmp
+  where new_id is not null and old_id is not null;
+
+  -- 4.sql解析
+  1）tmp表全连接full (outer) join 横向聚合（列）数据
+  tmp表是通过昨天的最新用户维度表（dim层的 9999-99-99分区）old和
+  今天的用户表的新增及变化表（ods层的 2020-06-15分区）new full join后产生的，
+  那么数据集包含了 用户记录信息的全部更改过程。 
+  对于full join 不匹配的 左表不存在的为null 右表不存在的也为null。
+  也就意味着包含了今天更改的用户（match） 
+  今天未更改的用户（mismatch right null） 
+  以及今天新增的用户（mismatch left null）。
+
+  用户有三种情况：
+  1.未更改
+  old_user_id  new_user_id  old_name  new_name  old_start  new_start  old_end   new_end
+    1            null        david    null      20200614   null       99999999   null
+  2.更改
+  old_user_id  new_user_id  old_name  new_name  old_start  new_start  old_end   new_end
+    2             2          sally    sally1    20200614   20200615   99999999  99999999
+  3.新增
+  old_user_id  new_user_id  old_name  new_name  old_start  new_start  old_end   new_end
+    null          3          null     kula      null       20200615    null     99999999
+
+  而我们拉链表要达到的效果是既有当天最新的用户表 还有保存更改之前的用户表 并且要分区 end_time是分区字段
+  nvl(value，default_value)函数 如果value为null就取default_value 否者就取value
+
+  2）select nvl(new_value,old_value) from tmp 语句
+  nvl(new_value,old_value) 这是取出最新的用户表信息
+  用户有三种情况：参照上表
+  1.未更改
+   user_id        name       start         end
+      1           david     20200614       99999999
+  2.更改
+   user_id        name       start         end
+      2           sally1    20200615       99999999
+  3.新增
+   user_id        name       start         end
+      3           kula      20200615       99999999
+  这是取出20200615的最新用户信息，同时注意这些信息分区为99999999
+
+  3）根据需求我们还需要保存20200614-20200615的用户信息更改过程 怎么取呢？
+  select old_id, old_name, old_start, cast(date_add('2020-06-15',-1) as string) old_end,
+  cast(date_add('2020-06-15',-1) as string) dt from tmp
+  同样取出来的用户有三种情况：
+  1.未更改
+   old_user_id      old_name       old_start         old_end
+      1              david         20200614          20200614
+  2.更改
+   old_user_id      old_ name      old_start         old_end
+      2              sally         20200614          20200614
+  3.新增
+   old_user_id      old_name       old_start         old_end
+      3              kula          20200614          20200614
+  查看第一张表我们要取的信息是：
+  20200615发生更改的用户 更改之前的状态 既是
+   old_user_id      old_ name      old_start         old_end
+    2                sally         20200614          20200614
+  通过where new_id is not null and old_id is not null子句过滤。
+  我们发现只有发生更改的用户old_user_id 和 new_user_id不为null。
+
+  4）将2和3中的结果集纵向聚合（行）使用union all 不能使用union（会去重），就得到了我们想要的数据
+    1.未更改
+     user_id          name       start         end
+        1           david        20200614       99999999
+    2.更改
+     user_id          name       start         end
+        2          sally1        20200615       99999999
+    3.新增
+     user_id          name       start         end
+        3           kula         20200615       99999999
+    4.更改之前
+     user_id          name       start         end
+        2           sally        20200614       20200614
+   用户维度表
+   20200614分区：20200614过期的用户信息
+   99999999分区：最新的用户信息
+
+  ```
 
 # Hive优化
 * join时的优化  
