@@ -144,6 +144,53 @@ classes: wide
       ```
   注意：在修改之前创建的表不起作用
 
+# HQL
+* Create-Table-As-Select (CTAS).
+
+  ```sql
+  CREATE TABLE tmp_emp2 as SELECT * FROM tmp_emp1;
+  CREATE TABLE tmp_emp3 like tmp_emp1;
+  ```
+
+* 当需要写一个比较复杂的HQL查询语句时，推荐使用CTE(Common Table Expression)重写嵌套的查询语句，如下:
+
+  ```sql
+  -- 查询多个临时表 对数据集合汇总 并插入到表格中
+  with（select clause） as tmp1,
+  ... as tmp2,
+  ....
+  insert overwrite table table name partition(dt)
+  select ... from ... join ... on ...
+  ```
+* hive中的表分为managed(托管表也叫做内部表)、external（外部表）、temporary（临时表）。临时表只对当前的用户session可见，并且在session结束后自动删除。不支持分区以及创建索引。
+  hive表默认都是内部表，hive控制其数据的生命周期。删除内部表时元数据和数据都会被删除。对于外部表，hive控制元数据，删除外部表时只会删除表的定义，保留表的数据。  
+  -- 删除表：drop table（truncate table不允许对外部表操作）
+
+  ```sql
+  -- 清空外部表
+  alter table ads_user_retention  set TBLPROPERTIES('EXTERNAL'='false');
+  truncate table ads_user_retention;
+  alter table ads_user_retention  set TBLPROPERTIES('EXTERNAL'='true');
+
+  -- 修复外部表数据
+  msck repair table tablename 
+  ```
+
+* 复杂数据类型定义  
+
+  ```raw
+    1）map结构数据定义    
+        map<string,string>     
+    2）array结构数据定义
+        array<string>   
+    3）struct结构数据定义
+        struct<id:int,name:string,age:int>  
+    4）struct和array嵌套定义
+        array<struct<id:int,name:string,age:int>>
+  ```
+
+*
+
 
 # Hive中的join
 Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。 
@@ -256,28 +303,126 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
       当子表中存在重复的数据，使用JOIN ON的时候，A,B表会关联出两条记录，因为ON上的条件符合；
       而使用LEFT SEMI JOIN时，当A表中的记录，在B表上产生符合条件之后就返回，不会再继续查找B表记录了，所以如果B表有重复，也不会产生重复的多条记录。
 
+# Hive常用函数
 
-# Hive优化
-* 当需要写一个比较复杂的HQL查询语句时，推荐使用CTE风格重写嵌套的查询语句，如下:
+  ```raw
+  str_to_map(text,delimiter1,delimiter2) 将键值对字符串转换成map对象 
+    text: k/v字符串 delimiter1: kv对 切割符 delimiter2: 键值k/v 切割符
+  name_struct(name1,val1,name2,val2...) 
+    creates a struct with the given names and values
+  列转行：concat_ws(saparator,collect_set())
+  行转列：later view(explode(..set))
+  collect_set(...elements)    
+    返回一系列去重的对象集合 collect_list()不去重
+  concat_ws([str| array(str)])  将给定的字符串连接起来
+  nvl(value,default value) 
+    return default value if value is null else return value
+  coalesce(value1,value2...) 
+    return the first not-null value  
+  posexplode(a) 
+    - behaves like explode for arrays, but includes 
+      the position (starting with 0) of items in the original array
+
+  日期处理函数:
+  1）date_format函数（根据格式整理日期）
+  hive (gmall)> select date_format('2020-06-14','yyyy-MM');
+  2020-06
+  2）date_add/date_sub函数（加减日期）
+  hive (gmall)> select date_add('2020-06-14',-1);
+  2020-06-13
+  hive (gmall)> select date_add('2020-06-14',1);
+  2020-06-15
+  3）next_day函数
+    取当前天的下一个周一
+    hive (gmall)> select next_day('2020-06-14','MO');
+    2020-06-15
+    取当前周的周一
+    hive (gmall)> select date_add(next_day('2020-06-14','MO'),-7);
+    2020-06-8
+  4）last_day函数（求当月最后一天日期）
+  hive (gmall)> select last_day('2020-06-14');
+  2020-06-30
+  
+  时间处理：
+  1）from_unixtime(unix_time, format) 
+    - returns unix_time in the specified format
+  2）unix_timestamp(date[, pattern]) 
+    - Converts the time to a number
+  ```
+* pivot on spark-sql/oracle  
+-- pivot ，Spark-sql 、Oracle特有关键词，即旋转，将指列的字段值，旋转成为多个列。并且可以指定某些列成为旋转列的聚合值。  
+假设有表test_order_info如下，现在需求求出每个user购买各个produce的amount。
+
+  |   uname  | product |  age  |  city  |  amount |
+  |:---------|:-------:|:-----:|:------:|:------:|
+  | zhang3   |  tv     | 22    | bj     | 3000   |
+  |   li4    | notebook| 41    | bj     | 8000   | 
+  |  wang5   |  phone  | 32    | sh     | 4000   | 
+  |  zhao6   | notebook| 22    | sz     | 3000   |
+  |  zhang3  |  phone  | 22    | bj     | 3000   |
+  |   li4    |  tv     | 41    | sz     | 4000   |
+  |==============================================|
+
 
   ```sql
-  -- 查询多个临时表 对数据集合汇总 并插入到表格中
-  with（select clause） as tmp1,
-  ... as tmp2,
-  ....
-  insert overwrite table table name partition(dt)
-  select ... from ... join ... on ...
+  select * from 
+  （select uname,product,age,amount from test_order_info）oi  
+  pivot ( sum(amount) as amt  for product in ('tv','notebook','phone' ));
+
+  -- result 注意旋转列tv/notebook/phone列名省略了_amt
+  uname   age   tv    notebook  phone
+  zhang3  22    3000   null     3000
+  zhao6   22    null   3000     null
+  li4     41    4000   8000     null
+  wang5   32    null   null     4000
+
+  原理说明
+  把整个表整理成3种列：维度列、旋转列、聚合列
+  -- 格式：
+  select * from table_name 
+  pivot ( sum(聚合列) as 列标识  for 旋转列 in( 旋转列值1 ,旋转列值2,旋转列值3) )
+  除了旋转列和聚合列，默认都是维度列,如果存在这三种以外的字段，需要提前用子查询去除。
   ```
+
+* 窗口函数：  
+  * row_number(): Assigns a unique sequence number starting from 1 to each row,
+    according to the partition and order specification.  
+  * rank(): Ranks items in a group, such as finding the top N rows for specific
+    conditions.  
+  * dense_rank(): Similar to rank, but leaves no gaps in the ranking sequence when
+    there are ties. For example, if we rank a match using dense_rank and have two
+    players tied for second place, we would see that the two players were both in
+    second place and that the next person is ranked third. However,
+    the rank function would rank two people in second place, but the next person
+    would be in fourth place.  
+  * percent_rank(): Uses rank values rather than row counts in its numerator
+    as (current rank - 1)/(total number of rows - 1). Therefore, it returns the percentage
+    rank of a value relative to a group of values.  
+  * LEAD(value_expr[,offset[,default]]) return data from the next row    
+    The number of rows to lead can optionally be specified. If the number of rows to lead is not specified, the lead is one row.
+    Returns default/null when the lead for the current row extends beyond the end of the window.  
+  * LAG(value_expr[,offset[,default]])  return data from a previous row  
+    The number of rows to lag can optionally be specified. If the number of rows to lag is not specified, the lag is one row.
+    Returns default/null when the lag for the current row extends before the beginning of the window.  
+  * FIRST_VALUE  
+    This takes at most two parameters. The first parameter is the column for which you want the first value, the second (optional) parameter must be a boolean which is false by default. If set to true it skips null values.  
+  * LAST_VALUE  
+    This takes at most two parameters. The first parameter is the column for which you want the last value, the second (optional) parameter must be a boolean which is false by default. If set to true it skips null values.
+
+
+
+# Hive优化
 * join时的优化  
   1) map-side join:  
   If all but one of the tables being joined are small, the join can be performed as a map only job. The query
     ```sql
-      SELECT /*+ MAPJOIN(b) */ a.key, a.value
-      FROM a JOIN b ON a.key = b.key
+    SELECT /*+ MAPJOIN(b) */ a.key, a.value
+    FROM a JOIN b ON a.key = b.key
     ```
 
   does not need a reducer. For every mapper of A, B is read completely. The restriction is that a FULL/RIGHT OUTER JOIN b cannot be performed.   
-  2）reduce-side join:  
+  map-side join对于多个表连接时（mapjoin只能是最后一个连接），如果发生在全外或者右外连接时，意味着以右表为准，此时右表的数据在分布式缓存当中，那么左表的每个map任务得到数据是不完整的（缺失了左表没有右表中有的数据）。因此右表也应该经过map阶段，根据连接键作为key，分发到对应的reducer当中，再与左表进行聚合操作。如果右表是最后一个连接的表，那么直接通过流传送到每一个reducer当中，然后遍历右表的每一行数据与之前的join结果（buffered in memory）进行聚合计算。根本原因就是分布式缓存每个map都要共享，无法保存join结果。而通过stream发送到每个reduce，可以正常操作。  
+  2）reduce-side join（common join）:  
   Hive converts joins over multiple tables into a single map/reduce job if for every table the same column is used in the join clauses.In every map/reduce stage of the join, the last table in the sequence is streamed through the reducers where as the others are buffered. Therefore, it helps to reduce the memory needed in the reducer for buffering the rows for a particular value of the join key by organizing the tables such that the largest tables appear last in the sequence.  
   In every map/reduce stage of the join, the table to be streamed can be specified via a hint.
 
@@ -300,3 +445,8 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
     ON (a.key=b.key AND b.ds='2009-07-07' AND a.ds='2009-07-07')
     ```
   ..the result is that the output of the join is pre-filtered, and you won't get post-filtering trouble for rows that have a valid a.key but no matching b.key. The same logic applies to RIGHT and FULL joins.
+
+
+# Hive坑点
+* lzo的index文件对hive表数据有影响 会多出一行&空行  
+  解决办法：使用snapy压缩
