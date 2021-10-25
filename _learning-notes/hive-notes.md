@@ -447,7 +447,6 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
   TBLPROPERTIES ("orc.compress"="snappy");
 
   -- 2.首日装载数据
-
   insert overwrite table dim_user_info partition(dt='9999-99-99')
   select
       id,
@@ -458,7 +457,6 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
   where dt='2020-06-14';
 
   -- 3.每日装载数据
-
   with
   tmp as
   (
@@ -562,14 +560,14 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
   3.新增
    old_user_id      old_name       old_start         old_end
       3              kula          20200614          20200614
-  查看第一张表我们要取的信息是：
+  我们要取的信息是：
   20200615发生更改的用户 更改之前的状态 既是
    old_user_id      old_ name      old_start         old_end
     2                sally         20200614          20200614
+  查看第一张表，我们发现只有发生更改的用户old_user_id 和 new_user_id都不为null。
   通过where new_id is not null and old_id is not null子句过滤。
-  我们发现只有发生更改的用户old_user_id 和 new_user_id不为null。
 
-  4）将2和3中的结果集纵向聚合（行）使用union all 不能使用union（会去重），就得到了我们想要的数据
+  4）将2和3中的结果集纵向聚合（行）使用union all 比 union性能更好，就得到了我们想要的数据
     1.未更改
      user_id          name       start         end
         1           david        20200614       99999999
