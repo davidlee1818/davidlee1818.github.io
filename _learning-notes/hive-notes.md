@@ -189,9 +189,6 @@ classes: wide
         array<struct<id:int,name:string,age:int>>
   ```
 
-*
-
-
 # Hive中的join
 Hive是基于Hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供简单的sql查询功能，可以将sql语句转换为MapReduce任务进行运行。 
 sql中的连接查询有inner join(内连接）、left join(左连接)、right join（右连接）、full join（全连接）left semi join(左半连接) 五种方式，它们之间其实并没有太大区别，仅仅是查询出来的结果有所不同。
