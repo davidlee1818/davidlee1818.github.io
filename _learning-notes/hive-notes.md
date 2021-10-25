@@ -446,4 +446,4 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
 
 # Hive坑点
 * lzo的index文件对hive表数据有影响 会多出一行&空行  
-  解决办法：使用snapy压缩
+  解决办法：使用snappy压缩
