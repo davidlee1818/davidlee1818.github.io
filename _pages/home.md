@@ -8,7 +8,7 @@ header:
   caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: >
   这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！<br />
-  <small><a href="https://github.com/mmistakes/minimal-mistakes/releases/tag/4.42.0">minimal-mistakes最新版本</a></small>
+  <small><a href="https://github.com/mmistakes/minimal-mistakes/releases/tag/4.24.0">minimal-mistakes最新版本</a></small>
 feature_row:
   - image_path: /assets/images/homepage/home-note.jpg
     image_caption: "[**Unsplash**](https://unsplash.com)"
