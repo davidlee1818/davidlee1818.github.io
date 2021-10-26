@@ -7,7 +7,7 @@ toc: true
 toc_sticky: true
 toc_label: "本页目录"
 toc_icon: "cog"
-categories: [artices]
+categories: [articles]
 tags: [data warehouse]
 
 ---
