@@ -65,7 +65,7 @@ ALGOLIA_API_KEY=your_admin_api_key bundle exec jekyll algolia
  - 从列表中找到你的github仓库并启用 
 
 
-![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/build-blog/shortcut-buildblog03.png){: .align-right}
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/learning-notes/build-blog/shortcut-buildblog03.png){: .align-right}
 取消勾选'Build pull request updates'选项，防止每次你收到pull请求是重新编排索引(评论会触发pull request)
 
 ## 配置Travis
