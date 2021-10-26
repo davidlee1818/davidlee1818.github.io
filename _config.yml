@@ -357,3 +357,5 @@ defaults:
       read_time: true
       coll_title: "大数据框架"
 
+
+theme: jekyll-theme-cayman
