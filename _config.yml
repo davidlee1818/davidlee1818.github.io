@@ -12,7 +12,7 @@
 
 remote_theme             : "mmistakes/minimal-mistakes@4.24.0"
 #theme                    : "minimal-mistakes-jekyll"
-minimal_mistakes_skin    : "air" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "sunrise" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale                   : "zh-CN"
@@ -288,13 +288,15 @@ collections:
   learning-notes:
     output: true
     permalink: /:collection/:path/
+    title: "学习笔记" #_page/collection-archive.html h2标签显示的标题
   life-notes:
     output: true
     permalink: /:collection/:path/
+    title: "生活摘记"
   bigdata-framework:
     output: true
     permalink: /:collection/:path/
-
+    title: "大数据框架"
 
 # Defaults
 defaults:
@@ -329,6 +331,7 @@ defaults:
       share: true
       comments: true
       read_time: true
+      coll_title: "学习笔记" #_includes/breadcrumbs.html 对于page的breadcrumbs的上级目录 span标签显示的文本
 
   # _life-notes
   - scope:
@@ -340,6 +343,7 @@ defaults:
       share: true
       comments: true
       read_time: true
+      coll_title: "生活摘记"
 
   # _bigdata-framework
   - scope:
@@ -351,4 +355,5 @@ defaults:
       share: true
       comments: true
       read_time: true
+      coll_title: "大数据框架"
 

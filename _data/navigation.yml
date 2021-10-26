@@ -1,8 +1,8 @@
 # main links
 main:
-  - title: "Rencent"
+  - title: "最新"
     url: /recent/
-  - title: "Collections"
+  - title: "主题"
     url: /collection-archive/
 
 learningnotes:
@@ -31,11 +31,11 @@ bigdata:
   - title: "大数据框架"
     url: /bigdata-framework/
     children :
-      - title: "大数据技术之hadoop(入门)"
+      - title: "大数据技术之hadoop-入门"
         url: /bigdata-framework/hadoop01/
-      - title: "大数据技术之hadoop(HDFS)"
+      - title: "大数据技术之hadoop-HDFS"
         url: /bigdata-framework/hadoop02/
-      - title: "大数据技术之hadoop(MR)"
+      - title: "大数据技术之hadoop-MR"
         url: /bigdata-framework/hadoop03/
       - title: "大数据技术之flume"
         url: /bigdata-framework/flume-tutorial/
