@@ -348,7 +348,7 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
   ```
 * pivot on spark-sql/oracle  
 -- pivot ，Spark-sql 、Oracle特有关键词，即旋转，将指列的字段值，旋转成为多个列。并且可以指定某些列成为旋转列的聚合值。  
-假设有表test_order_info如下，现在需求求出每个user购买各个produce的amount。
+假设有表test_order_info如下，现在需求求出每个user购买各个product的amount。
 
   |   uname  | product |  age  |  city  |  amount |
   |:---------|:-------:|:-----:|:------:|:------:|
