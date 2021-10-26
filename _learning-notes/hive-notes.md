@@ -627,7 +627,7 @@ sql中的连接查询有inner join(内连接）、left join(左连接)、right j
   ..the result is that the output of the join is pre-filtered, and you won't get post-filtering trouble for rows that have a valid a.key but no matching b.key. The same logic applies to RIGHT and FULL joins.
 
   4）Hive的全外连接（full outter join一定不能进行mapjoin）在MR的层面上是怎么进行的呢？  
-  <p>全外连接要保留所有的key，那么两个表必然要进入map/reduce stage，同时在reduce端要保证同一个key(join 字段)进入到同一个reduce当中，并且数据应该是key组内有序的，也就是说reduce端的数据应该先按key分组再按表分组。  
+  <p>全外连接要保留所有的key，那么两个表必然要进入map/reduce stage，同时在reduce端要保证同一个key(join 字段)进入到同一个reduce当中，并且数据应该是key组内有序的，也就是说reduce端的数据应该先按key分区再按表分组。  
   我们可以通过组合键来实现，至少要两个字段key(join 键)还有flag(表的标记，假设左表为0，右表为1)。首先需要分区器partitioner根据key分区，还需要分组比较器comparator。根据key，flag(假设是升序)进行排序。
   两个表都做为map端的输入并进行判断根据表设置flag，将（combkey，value）写出去。经过shuffle 和 sort 之后在reduce端开始聚合。对于每一个key左表的数据一定先到，如果右表匹配那接着就是右表的数据。如果没有匹配的那么接下就是左表的下一个key的记录（左右两表key值不重复的情况下，一般情况下不会重复）。即使重复也可以通过判断进行处理，
   因为不管多少重复的数据对于同一个key左表的数据一定比右表先到。
