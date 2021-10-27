@@ -5,7 +5,8 @@ permalink: /
 header:
   overlay_image: /assets/images/homepage/home-top.jpg
   overlay_filter: 0.1
-  caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
+  caption: "Photo credit: Photo by [**Francis Nie**](https://unsplash.com/@francis_nie?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText )"
+  
 excerpt: >
   这是我用minimal-mistakes 皮肤搭建在Github pages上的博客.如果你也喜欢去下面看看吧！very cool！<br />
   <small><a href="https://github.com/mmistakes/minimal-mistakes/releases/tag/4.24.0">minimal-mistakes最新版本</a></small>
