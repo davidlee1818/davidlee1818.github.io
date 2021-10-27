@@ -37,6 +37,6 @@ bigdata:
         url: /bigdata-framework/hadoop02/
       - title: "大数据技术之hadoop-MR"
         url: /bigdata-framework/hadoop03/
-      - title: "大数据技术之flume"
+      - title: "大数据技术之Flume"
         url: /bigdata-framework/flume-tutorial/
 
