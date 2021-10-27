@@ -282,7 +282,7 @@ $> ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 $> cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys	//追加公钥到本地主机的授权库中
 $> ssh-copy-id username@hostname	//拷贝公钥到指定主机的授权库中（以上两种方法都可以）
 $> ssh localhost	//测试连接，如果不需要输入密码就成功了
-	```
+```
 
 *启动停止进程* 
 
