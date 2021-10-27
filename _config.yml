@@ -331,7 +331,6 @@ defaults:
       share: true
       comments: true
       read_time: true
-      show_date: true
       coll_title: "学习笔记" #_includes/breadcrumbs.html 对于page的breadcrumbs的上级目录 span标签显示的文本
 
   # _life-notes
