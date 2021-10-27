@@ -52,13 +52,14 @@ Lucene框架是Doug Cutting开创的开源软件，用Java书写代码，实现�
 2006 年 3 月份，Map-Reduce和Nutch Distributed File System (NDFS) 分别被纳入到 Hadoop 项目中，Hadoop就此正式诞生，标志着大数据时代来临。
 
 ## Hadoop三大发行版本
-**Hadoop三大发行版本：Apache、Cloudera、Hortonworks**  
-**Apache Hadoop**  
-[**官网地址**](http://hadoop.apache.org/releases.html)
-[**下载地址**](https://archive.apache.org/dist/hadoop/common/)
+**Hadoop三大发行版本：Apache、Cloudera、Hortonworks**
 * Apache版本最原始（最基础）的版本，对于入门学习最好。
 * Cloudera在大型互联网企业中用的较多。
 * Hortonworks文档较好。
+
+**Apache Hadoop**  
+[**官网地址**](http://hadoop.apache.org/releases.html)
+[**下载地址**](https://archive.apache.org/dist/hadoop/common/)
 
 **Cloudera Hadoop**   
 [**官网地址**](https://www.cloudera.com/downloads/cdh/5-10-0.html)
