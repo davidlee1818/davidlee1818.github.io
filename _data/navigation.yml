@@ -9,13 +9,13 @@ learningnotes:
   - title: "学习笔记"
     url: /learning-notes/
     children :
-      - title: "第一天：准备搭建环境"
+      - title: "博客搭建环境"
         url: /learning-notes/buid-blog-day01/
-      - title: "第二天：博客评论及验证"
+      - title: "博客评论及验证"
         url: /learning-notes/buid-blog-day02/
-      - title: "第三天：博客检索"
+      - title: "博客检索"
         url: /learning-notes/buid-blog-day03/
-      - title: "第四天：评论回复"
+      - title: "博客评论回复"
         url: /learning-notes/buid-blog-day04/
       - title: "hive总结笔记"
         url: /learning-notes/hive-notes/
@@ -31,12 +31,12 @@ bigdata:
   - title: "大数据框架"
     url: /bigdata-framework/
     children :
-      - title: "大数据技术之hadoop-入门"
+      - title: "Hadoop Tutorials"
         url: /bigdata-framework/hadoop01/
-      - title: "大数据技术之hadoop-HDFS"
+      - title: "Hadoop HDFS"
         url: /bigdata-framework/hadoop02/
-      - title: "大数据技术之hadoop-MR"
+      - title: "Hadoop MR"
         url: /bigdata-framework/hadoop03/
-      - title: "大数据技术之Flume"
-        url: /bigdata-framework/flume-tutorial/
+      - title: "Flume Tutorials"
+        url: /bigdata-framework/flume-tutorials/
 

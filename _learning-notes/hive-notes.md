@@ -5,10 +5,6 @@ last_modified_at: 2021-10-27
 header:
   overlay_color: "#169CDE"
   teaser: assets/images/learning-notes/hive-notes/hive-notes-logo.jpg
-categories:
-  - bigdata
-tags:
-  - hive
 sidebar:
   nav: "learningnotes"
 classes: wide

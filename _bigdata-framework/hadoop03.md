@@ -1,13 +1,9 @@
 ---
-title: "大数据技术之Hadoop(MapReduce)" 
+title: "Hadoop MapReduce" 
 excerpt: "Hadoop是一个由Apache基金会所开发的分布式系统基础架构，广义上来说，Hadoop通常是指一个更广泛的概念——Hadoop生态圈。"
 header:
   overlay_color: "#169CDE"
   teaser: assets/images/bigdata-framework/hadoop/hadoop-logo.jpeg
-categories:
-  - bigdata
-tags:
-  - hadoop
 
 sidebar:
   nav: "bigdata"
