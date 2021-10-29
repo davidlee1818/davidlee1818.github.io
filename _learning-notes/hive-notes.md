@@ -3,7 +3,7 @@ title: "Hive总结笔记"
 excerpt: "常用的一些函数以及数仓表格设计和查询优化。"
 last_modified_at: 2021-10-27
 header:
-  overlay_color: "#169CDE"
+  overlay_color: "#DEC306"
   teaser: assets/images/learning-notes/hive-notes/hive-notes-logo.jpg
 sidebar:
   nav: "learningnotes"
