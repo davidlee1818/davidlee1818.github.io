@@ -1,5 +1,5 @@
 ---
-title: "LakeHouse仓湖一体架构"
+title: "LakeHouse湖仓一体架构"
 excerpt: "从数据存储架构的演变，洞悉数据湖的过去现在和未来。"
 header:
   overlay_color: "#0DA5E0"
