@@ -75,7 +75,7 @@ tags: [lakehouse]
 不同的公司在构建自己的数据湖时都大同小异，主要是以下的几个方面有着各自的选择：
 
 1. **存储系统**  
-  HDFS集群或者是 AWS S3 、Azure Data Lake Storage、阿里云OOS等云对象存储。
+  HDFS集群或者是 AWS S3 、Azure Data Lake Storage、阿里云OSS等云对象存储。
 2. **文件格式**  
   根据下游分析场景的需要：结构化的 Parquet、ORC 半结构化的 JSON 非结构化的文本、图像、音频或是视频。
 3. **处理引擎**  
