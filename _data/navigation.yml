@@ -26,6 +26,12 @@ lifenotes:
     children :
       - title: "Before you waste your time"
         url: /life-notes/before-you-waste-your-time/
+      - title: "真我"
+        url: /life-notes/zhenwo/
+      - title: "真爱"
+        url: /life-notes/zhenai/
+      - title: "顿悟"
+        url: /life-notes/dunwu/
 
 bigdata:
   - title: "大数据框架"
