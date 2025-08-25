@@ -3,7 +3,7 @@ title: "真我"
 excerpt: "愿我们都能在爱情和生活中，看清那个真实的自我"
 header:
   overlay_color: "#4da6ff"
-  teaser: assets/images/life-notes/before-you-waste-time-01.jpg
+  teaser: assets/images/life-notes/zhenwo.jpg
 sidebar:
   nav: "lifenotes"
 toc: true

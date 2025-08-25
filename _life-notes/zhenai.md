@@ -3,7 +3,7 @@ title: "真爱"
 excerpt: "愿我们都能找到那个互相欣赏包容成长的灵魂"
 header:
   overlay_color: "#4da6ff"
-  teaser: assets/images/life-notes/before-you-waste-time-01.jpg
+  teaser: assets/images/life-notes/zhenai.jpg
 sidebar:
   nav: "lifenotes"
 toc: true
