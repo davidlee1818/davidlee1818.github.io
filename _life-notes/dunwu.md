@@ -1,6 +1,7 @@
 ---
 title: "顿悟" 
 excerpt: "勇敢的享受生命"
+last_modified_at: 2025-08-27
 header:
   overlay_color: "#4da6ff"
   teaser: assets/images/life-notes/dunwu.jpg

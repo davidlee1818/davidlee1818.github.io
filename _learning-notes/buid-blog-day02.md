@@ -1,6 +1,7 @@
 ---
 title: "搭建博客之第二天"
 excerpt: "基于Staticman实现博客的评论功能以及Google reCAPTCHA验证，有点难度不过当你实现后很有成就感哦！"
+last_modified_at: 2021-10-23
 header:
   overlay_color: "#333"
   teaser: assets/images/learning-notes/build-blog/build-blog-02.jpg

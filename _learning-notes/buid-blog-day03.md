@@ -2,6 +2,7 @@
 title: "搭建博客之第三天"
 excerpt: "用[**algolia**](http://www.algolia.com)实现博客的搜索功能，并通过[**travis-ci**](https://travis-ci.org/)实现自动更新搜索库，
 很简单只要注册并配置好就行了！"
+last_modified_at: 2021-10-27
 header:
   overlay_color: "#333"
   teaser: assets/images/learning-notes/build-blog/build-blog-03.jpg

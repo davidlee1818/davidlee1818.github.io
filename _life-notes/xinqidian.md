@@ -1,6 +1,7 @@
 ---
 title: "新的起点" 
 excerpt: "反者道之动，弱者道之用"
+last_modified_at: 2025-09-03
 header:
   overlay_color: "#4da6ff"
   teaser: assets/images/life-notes/xinqidian.jpg

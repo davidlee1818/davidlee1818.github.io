@@ -1,6 +1,7 @@
 ---
 title: "Before you waste your time" 
 excerpt: "Life teaches us to make good use of time and time teaches us the value of life."
+last_modified_at: 2021-10-23
 header:
   overlay_color: "#4da6ff"
   teaser: assets/images/life-notes/before-you-waste-time-01.jpg

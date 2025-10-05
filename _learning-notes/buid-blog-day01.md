@@ -1,6 +1,7 @@
 ---
 title: "搭建博客之第一天" 
 excerpt: "在虚拟机上使用Ubuntu1804搭建环境ruby rubygems jekyll等  坑有点多！！"
+last_modified_at: 2021-10-23
 header:
   overlay_color: "#333"
   teaser: assets/images/learning-notes/build-blog/build-blog-01.jpg
