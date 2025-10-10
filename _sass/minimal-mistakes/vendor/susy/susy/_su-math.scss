@@ -91,7 +91,7 @@
     $container-spread: su-valid-spread($container-spread);
     $container: _su-sum($columns, $gutters, $container-spread, $validate: false);
     //update percentage($span-width / $container)
-    @return percentage(calc($gutters / $container));
+    @return percentage(calc($span-width / $container));
   }
 
   @return $span-width;
