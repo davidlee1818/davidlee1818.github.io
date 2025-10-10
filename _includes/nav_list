@@ -27,7 +27,7 @@
 </nav>
 
 
-{% include cloudmusic.html %}
+
 
 
 
