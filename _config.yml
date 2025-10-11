@@ -33,7 +33,7 @@ date_format              : "%Y-%m-%d" # default format is `"%B %-d, %Y"`
 words_per_minute         : 120
 
 comments:
-  provider               : "facebook"   # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
+  provider               : # false (default), "disqus", "discourse", "facebook", "staticman", "staticman_v2", "utterances", "giscus", "custom"
   disqus:
     shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
@@ -112,7 +112,7 @@ analytics:
 author:
   name             : *name
   avatar           : "/assets/images/homepage/david.jpg"
-  bio              : "*Every single day is a gift that why called present.*"
+  bio              : "*Today is a gift that why called present.*"
   location         : "ChangSha, CN"
   email            : "davidlee1818@163.com"
   links:
