@@ -1,5 +1,3 @@
-{% include cloudmusic.html %}
-
 {% assign navigation = site.data.navigation[include.nav] %}
 
 <nav class="nav__list">
