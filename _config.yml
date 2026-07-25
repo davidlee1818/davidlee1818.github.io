@@ -67,9 +67,9 @@ search                   : true # true, false (default)
 search_full_content      : true # true, false (default)
 search_provider          : algolia # lunr (default), algolia, google
 algolia:
-  application_id         : ER5RIVM35I
+  application_id         : KGVITK92VC
   index_name             : algolia-for-blog
-  search_only_api_key    : f3e5243cbe79cdd38441d082ff3aa914
+  search_only_api_key    : 33e793bfe557349b172fa8be6acc35c6
   powered_by             : true # true (default), false
   files_to_exclude       :
     - recent/index.html
