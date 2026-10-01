@@ -6,9 +6,16 @@
 <!-- require APlayer -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
 <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
-<!-- require MetingJS 
+<!-- require MetingJS -->
+
+<!-- meting.min.js 
 改用本地js文件 在includes/scripts.html中引入
--->
+Meting.min.js中的api接口可能暂时失效了，我们可以通过替换的方式修复这个问题。
+使用编辑器进入Meting.min.js文件，查找下面的链接 https://api.i-meto.com/meting/api
+将它替换为下面的链接 https://api.injahow.cn/meting/
+-->  
+
+<script src="{{ '/assets/js/meting.min.js' | relative_url }}"></script>
 
 
 
