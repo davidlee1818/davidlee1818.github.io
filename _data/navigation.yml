@@ -40,8 +40,10 @@ lifenotes:
         url: /life-notes/xiuxing/
       - title: "心记01"
         url: /life-notes/xinji01/
-      - title: "易经摘记01"
+      - title: "易经摘记乾坤"
         url: /life-notes/yijing01/
+      - title: "易经摘记水雷屯"
+        url: /life-notes/yijing02/
 
 bigdata:
   - title: "大数据框架"
