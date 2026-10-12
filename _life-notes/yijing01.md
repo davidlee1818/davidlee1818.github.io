@@ -4,7 +4,7 @@ excerpt: ""
 last_modified_at: 2026-08-16
 header:
   overlay_color: "#4da6ff"
-  teaser: assets/images/life-notes/xiuxing.jpg
+  teaser: assets/images/life-notes/yijingzhushi.jpeg
 sidebar:
   nav: "lifenotes"
 toc: true

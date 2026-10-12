@@ -4,7 +4,7 @@ excerpt: "周易第三卦屯（zhun） 水雷屯 坎上震下"
 last_modified_at: 2026-10-11
 header:
   overlay_color: "#4da6ff"
-  teaser: assets/images/life-notes/xiuxing.jpg
+  teaser: assets/images/life-notes/yijingzhushi.jpeg
 sidebar:
   nav: "lifenotes"
 toc: true
@@ -15,6 +15,8 @@ toc_icon: "cog"
 ---
 
 周易第三卦屯（zhun） 水雷屯 坎上震下
+
+![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/life-notes/yijingzhushi/zhungua.png){: .align-right}
 
 屯：元，亨，利，贞，勿用，有攸往，利建侯。
 
