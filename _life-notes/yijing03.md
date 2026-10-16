@@ -1,7 +1,7 @@
 ---
 title: "易经摘记" 
 excerpt: "周易第四卦 蒙 山水蒙 艮上坎下"
-last_modified_at: 2026-10-11
+last_modified_at: 2026-10-16
 header:
   overlay_color: "#4da6ff"
   teaser: assets/images/life-notes/yijingzhushi.jpeg
