@@ -41,10 +41,11 @@ lifenotes:
       - title: "易经摘记乾坤"
         url: /life-notes/yijing01/
       - title: "易经摘记水雷屯"
-        url: /life-notes/yijing02/
-      - title: "易经摘记山水蒙"
         url: /life-notes/yijing03/
-
+      - title: "易经摘记山水蒙"
+        url: /life-notes/yijing04/
+      - title: "易经摘记水天需"
+        url: /life-notes/yijing05/
 bigdata:
   - title: "大数据框架"
     url: /bigdata-framework/
