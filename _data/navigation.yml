@@ -46,6 +46,9 @@ lifenotes:
         url: /life-notes/yijing04/
       - title: "易经摘记水天需"
         url: /life-notes/yijing05/
+      - title: "易经摘记震为雷"
+        url: /life-notes/yijing51/
+
 bigdata:
   - title: "大数据框架"
     url: /bigdata-framework/
