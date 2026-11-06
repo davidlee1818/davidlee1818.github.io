@@ -500,6 +500,14 @@ toc_icon: "cog"
 
 小结：你把“前行而义先自后”解为“抽离出来、以更远视角看当下”，抓住了“后位”作为观照位置的实践含义。用震卦的话说：身处前行之势，心居后位之观；不争先以妄动，先退观以立义。 这与“当局者迷，旁观者清”相通，而震卦更进一层——旁观之后还要戒惧修省，才能真正“无咎”。
 
+{% include video id="BV1nVyQYwEQ3" provider="bilibili" danmaku="1" %}
+
+
+if something makes you sad when it ends, it must have been pretty wonderful when it was happening. if you're brave enough to allow yourself the gift of a really wide perspective, you'll see that the end is not sad Rebecca，it's just the start of the next incredibly beautiful thing.
+{: .notice--info}
+ 
+
+
 
 象曰。震索索。中未得也。虽凶无咎。畏邻戒也。
 {: .notice--success}
