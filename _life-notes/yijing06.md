@@ -1,6 +1,6 @@
 ---
 title: "易经摘记" 
-excerpt: "周易第六卦:讼 天水讼 乾上坎下"
+excerpt: "周易第六卦：讼 天水讼 乾上坎下"
 last_modified_at: 2026-11-08
 header:
   overlay_color: "#4da6ff"
@@ -14,7 +14,7 @@ toc_icon: "cog"
 
 ---
 
-周易第六卦:讼 天水讼 乾上坎下
+周易第六卦：讼 天水讼 乾上坎下
 
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/life-notes/yijingzhushi/songgua06.png){: .align-right}
 

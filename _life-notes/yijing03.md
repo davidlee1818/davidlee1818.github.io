@@ -1,6 +1,6 @@
 ---
 title: "易经摘记" 
-excerpt: "周易第三卦屯（zhun） 水雷屯 坎上震下"
+excerpt: "周易第三卦：屯 水雷屯 坎上震下"
 last_modified_at: 2026-10-11
 header:
   overlay_color: "#4da6ff"
@@ -14,7 +14,7 @@ toc_icon: "cog"
 
 ---
 
-周易第三卦屯（zhun） 水雷屯 坎上震下
+周易第三卦：屯（zhun） 水雷屯 坎上震下
 
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/life-notes/yijingzhushi/zhungua.png){: .align-right}
 
