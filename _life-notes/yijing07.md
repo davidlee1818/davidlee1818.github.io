@@ -1,6 +1,6 @@
 ---
 title: "易经摘记" 
-excerpt: "周易第七卦： 师 地水师 坤上坎下"
+excerpt: "周易第七卦： 师卦 地水师 坤上坎下"
 last_modified_at: 2026-11-21
 header:
   overlay_color: "#4da6ff"
@@ -14,7 +14,7 @@ toc_icon: "cog"
 
 ---
 
-周易第七卦： 师 地水师 坤上坎下
+周易第七卦： 师卦 地水师 坤上坎下
 
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/life-notes/yijingzhushi/shigua07.png){: .align-right}
 

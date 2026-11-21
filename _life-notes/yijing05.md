@@ -1,6 +1,6 @@
 ---
 title: "易经摘记" 
-excerpt: "周易第五卦：需 水天需 坎上乾下"
+excerpt: "周易第五卦：需卦 水天需 坎上乾下"
 last_modified_at: 2026-10-31
 header:
   overlay_color: "#4da6ff"
@@ -14,7 +14,7 @@ toc_icon: "cog"
 
 ---
 
-周易第五卦：需 水天需 坎上乾下
+周易第五卦：需卦 水天需 坎上乾下
 
 ![image-left]({{ site.url }}{{ site.baseurl }}/assets/images/life-notes/yijingzhushi/xugua.png){: .align-right}
 
